@@ -4,7 +4,7 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 
 @Entity("geolocation_table")
-data class GeoLocationEntity(
+data class GeolocationEntity(
     @PrimaryKey()
     val id: Int = 1,
     val name: String,
