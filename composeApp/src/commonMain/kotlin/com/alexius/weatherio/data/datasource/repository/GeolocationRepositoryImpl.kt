@@ -1,26 +1,48 @@
 package com.alexius.weatherio.data.datasource.repository
 
+import com.alexius.weatherio.data.datasource.local.dao.GeolocationDao
+import com.alexius.weatherio.data.datasource.remote.GeolocationRemoteApiService
+import com.alexius.weatherio.data.mapper.toDomain
+import com.alexius.weatherio.domain.mapper.toDto
 import com.alexius.weatherio.domain.models.Geolocation
 import com.alexius.weatherio.repository.GeolocationRepository
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.cancel
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.shareIn
 
-class GeolocationRepositoryImpl: GeolocationRepository {
+class GeolocationRepositoryImpl(
+    private val geolocationRemoteApiService: GeolocationRemoteApiService,
+    private val geolocationDao: GeolocationDao,
+    private val externalScope: CoroutineScope
+): GeolocationRepository {
     override val geolocation: Flow<Geolocation>
-        get() = TODO("Not yet implemented")
+        get() {
+            return geolocationDao.getGeolocation().map { it.toDomain() }
+                .shareIn(
+                    scope = externalScope,
+                    started = SharingStarted.Lazily,
+                    replay = 1
+                )
+        }
 
     override suspend fun upsertGeolocation(geolocation: Geolocation) {
-        TODO("Not yet implemented")
+        geolocationDao.upsertGeolocation(geolocation.toDto())
     }
 
-    override fun fetchGeolocation(query: String): Flow<Result<List<Geolocation>>> {
-        TODO("Not yet implemented")
+    override suspend fun fetchGeolocation(query: String): Result<List<Geolocation>> {
+        return runCatching {
+            geolocationRemoteApiService.searchLocation(query).getOrThrow()
+        }
     }
 
     override suspend fun clearGeolocation() {
-        TODO("Not yet implemented")
+        geolocationDao.clearGeolocation()
     }
 
     override suspend fun clear() {
-        TODO("Not yet implemented")
+        externalScope.cancel()
     }
 }

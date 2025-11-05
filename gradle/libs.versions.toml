@@ -17,7 +17,7 @@ kotlinx-coroutines = "1.10.2"
 
 kotlinxDatetime = "0.6.0"
 material3WindowSize = "1.7.1"
-navigationCompose = "2.8.0-alpha10"
+navigationCompose = "2.9.1"
 kotlinSerialization = "1.7.3"
 koin = "4.0.0"
 ktor = "3.3.1"
