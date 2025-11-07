@@ -10,13 +10,16 @@ androidx-espresso = "3.7.0"
 androidx-lifecycle = "2.9.0"
 androidx-testExt = "1.3.0"
 composeHotReload = "1.0.0-rc02"
-composeMultiplatform = "1.9.1"
+composeMultiplatform = "1.9.2"
 junit = "4.13.2"
 kotlin = "2.2.20"
 kotlinx-coroutines = "1.10.2"
 
 kotlinxDatetime = "0.6.0"
-material3WindowSize = "1.7.1"
+material3IconsExtended = "1.2.0"
+material3WindowSize = "1.9.0"
+materialIconsExtended = "1.7.3"
+materialIconsExtendedVersion = "1.7.3"
 navigationCompose = "2.9.1"
 kotlinSerialization = "1.7.3"
 koin = "4.0.0"
@@ -27,6 +30,8 @@ sqlite = "2.5.0-alpha11"
 room = "2.7.0-alpha11"
 
 [libraries]
+androidx-material-icons-extended = { module = "androidx.compose.material:material-icons-extended", version.ref = "materialIconsExtended" }
+androidx-material3-icons-extended = { module = "androidx.compose.material3:material3-icons-extended", version.ref = "material3IconsExtended" }
 kotlin-test = { module = "org.jetbrains.kotlin:kotlin-test", version.ref = "kotlin" }
 kotlin-testJunit = { module = "org.jetbrains.kotlin:kotlin-test-junit", version.ref = "kotlin" }
 junit = { module = "junit:junit", version.ref = "junit" }
@@ -65,6 +70,7 @@ coil-mp = { module = "io.coil-kt.coil3:coil", version.ref = "coil3" }
 
 androidx-room-compiler = { group = "androidx.room", name = "room-compiler", version.ref = "room" }
 androidx-room-runtime = { group = "androidx.room", name = "room-runtime", version.ref = "room" }
+material-icons-extended = { module = "org.jetbrains.compose.material:material-icons-extended", version.ref = "materialIconsExtendedVersion" }
 material3-window-size = { module = "org.jetbrains.compose.material3:material3-window-size-class", version.ref = "material3WindowSize" }
 sqlite-bundled = { module = "androidx.sqlite:sqlite-bundled", version.ref = "sqlite" }
 
