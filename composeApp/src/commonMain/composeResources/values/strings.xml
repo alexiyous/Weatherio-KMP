@@ -30,5 +30,7 @@
     <string name="weather_snow_showers_slight">Snow showers: Slight</string>
     <string name="weather_thunderstorm_slight">Thunderstorm: Slight</string>
     <string name="weather_unknown">Unknown</string>
+
+    <string name="country_search_input_field_text">Search Country</string>
 </resources>
 

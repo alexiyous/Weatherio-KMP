@@ -30,5 +30,7 @@
     <string name="weather_snow_showers_slight">Salju rintik: Ringan</string>
     <string name="weather_thunderstorm_slight">Badai petir: Ringan</string>
     <string name="weather_unknown">Tidak diketahui</string>
+
+    <string name="country_search_input_field_text">Cari Lokasi Negara</string>
 </resources>
 
