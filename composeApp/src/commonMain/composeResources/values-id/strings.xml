@@ -32,5 +32,8 @@
     <string name="weather_unknown">Tidak diketahui</string>
 
     <string name="country_search_input_field_text">Cari Lokasi Negara</string>
+    <string name="error_network_title">Terjadi Kesalahan</string>
+    <string name="error_network_message">Periksa koneksi internet Anda dan coba lagi.</string>
+    <string name="retry">Coba Lagi</string>
 </resources>
 

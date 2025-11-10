@@ -32,5 +32,12 @@
     <string name="weather_unknown">Unknown</string>
 
     <string name="country_search_input_field_text">Search Country</string>
+
+    <string name="error_network_title">Something Went Wrong</string>
+    <string name="error_network_message">Please check your internet connection and try again.</string>
+    <string name="retry">Retry</string>
+
+    <string name="error_critical_title">Something Broke</string>
+    <string name="error_critical_message">Wait a little and try again</string>
 </resources>
 

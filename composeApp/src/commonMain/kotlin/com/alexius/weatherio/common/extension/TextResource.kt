@@ -1,23 +1,24 @@
 package com.alexius.weatherio.common.extension
 
 import androidx.compose.runtime.Composable
-import coil3.PlatformContext
 import com.alexius.weatherio.utils.TextResource
+import org.jetbrains.compose.resources.getPluralString
+import org.jetbrains.compose.resources.getString
 import org.jetbrains.compose.resources.pluralStringResource
 import org.jetbrains.compose.resources.stringResource
 
 @Composable
-fun TextResource.asString(): String {
+fun TextResource.asStringCompose(): String {
     return when (this) {
         is TextResource.PlainText -> text
-        is TextResource.ComposePluralResource -> {
+        is TextResource.PluralResource -> {
             if (formatArgs.isNotEmpty()) {
                 pluralStringResource(resId, quantity, *formatArgs.toTypedArray())
             } else {
                 pluralStringResource(resId, quantity)
             }
         }
-        is TextResource.ComposeStringResource -> {
+        is TextResource.SingleStringResource -> {
             if (formatArgs.isNotEmpty()) {
                 stringResource(resId, *formatArgs.toTypedArray())
             } else {
@@ -27,4 +28,11 @@ fun TextResource.asString(): String {
     }
 }
 
-expect fun TextResource.asString(context: PlatformContext): String
+suspend fun TextResource.asString(): String {
+    return when(this) {
+        is TextResource.PlainText -> text
+        is TextResource.PluralResource -> getPluralString(resId, quantity)
+        is TextResource.SingleStringResource -> getString(resId)
+    }
+}
+

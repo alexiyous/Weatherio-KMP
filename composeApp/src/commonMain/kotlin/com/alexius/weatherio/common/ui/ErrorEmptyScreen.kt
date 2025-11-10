@@ -1,15 +1,26 @@
 package com.alexius.weatherio.common.ui
 
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ErrorOutline
+import androidx.compose.material.icons.filled.MinorCrash
+import androidx.compose.material.icons.filled.MobiledataOff
+import androidx.compose.material.icons.filled.NetworkLocked
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-
-/*
-@JvmInline
-value class DrawableResource(val id: Int)
+import androidx.compose.ui.graphics.vector.ImageVector
+import com.alexius.weatherio.common.extension.asStringCompose
+import com.alexius.weatherio.presentation.utils.NavigationType
+import com.alexius.weatherio.utils.AppError
+import com.alexius.weatherio.utils.TextResource
+import weatherio.composeapp.generated.resources.Res
+import weatherio.composeapp.generated.resources.error_critical_message
+import weatherio.composeapp.generated.resources.error_critical_title
+import weatherio.composeapp.generated.resources.error_network_message
+import weatherio.composeapp.generated.resources.error_network_title
+import weatherio.composeapp.generated.resources.retry
 
 data class ErrorEmptyState(
-    @DrawableRes
-    val icon: Int,
+    val icon: ImageVector,
     val title: TextResource,
     val message: TextResource,
     val buttonText: TextResource?
@@ -19,51 +30,48 @@ data class ErrorEmptyState(
 fun DatingErrorEmptyState(
     modifier: Modifier = Modifier,
     errorEmptyState: ErrorEmptyState,
+    navigationType: NavigationType,
     buttonAction: (() -> Unit)
 ) {
     EmptyContent(
         modifier = modifier,
-        title = errorEmptyState.title.asString(),
-        subtitle = errorEmptyState.message.asString(),
-        image = painterResource(errorEmptyState.icon),
-        buttonText = errorEmptyState.buttonText?.asString(),
-        buttonAction = buttonAction
+        title = errorEmptyState.title.asStringCompose(),
+        subtitle = errorEmptyState.message.asStringCompose(),
+        image = errorEmptyState.icon,
+        buttonText = errorEmptyState.buttonText?.asStringCompose(),
+        buttonAction = buttonAction,
+        navigationType = navigationType
     )
 }
 
 fun AppError.toErrorEmptyState(
     customTitle: TextResource? = null,
     customMessage: TextResource? = null,
-    customNetworkErrorIcon: ((Int) -> DrawableResource?)? = null,
+    customNetworkErrorIcon: ImageVector? = null,
 ) : ErrorEmptyState {
     return when(this) {
         is AppError.NetworkError -> ErrorEmptyState(
-            icon = R.drawable.image_network_error,
-            title = customTitle ?: TextResource.StringResource(R.string.error_network_title),
-            message = customMessage ?: TextResource.StringResource(R.string.error_network_message),
-            buttonText = TextResource.StringResource(R.string.retry)
+            icon = Icons.Default.MobiledataOff,
+            title = customTitle ?: TextResource.SingleStringResource(Res.string.error_network_title),
+            message = customMessage ?: TextResource.SingleStringResource(Res.string.error_network_message),
+            buttonText = TextResource.SingleStringResource(Res.string.retry)
         )
         is AppError.ServerError -> ErrorEmptyState(
-            icon = if (this.httpCode == 500) {
-                R.drawable.image_server_error
-            } else {
-                // Если у нас не 500 ошибка, то кастомная картинка по требованию дизайна
-                customNetworkErrorIcon?.invoke(httpCode)?.id ?: R.drawable.image_server_error
-            },
-            title = TextResource.PlainText(this.title),
+            icon = if (this.httpCode == 500) Icons.Default.ErrorOutline
+             else Icons.Default.NetworkLocked,
+            title = TextResource.PlainText("${this.httpCode}"),
             message = TextResource.PlainText(this.message),
             buttonText = if (this.httpCode == 500) {
-                TextResource.StringResource(R.string.retry)
+                TextResource.SingleStringResource(Res.string.retry)
             } else {
-                // На другие коды ошибок с бекенда, кнопку не показываем
                 null
             }
         )
         is AppError.UnexpectedError -> ErrorEmptyState(
-            icon = R.drawable.image_danger_error,
-            title = TextResource.StringResource(R.string.error_critical_title),
-            message = TextResource.StringResource(R.string.error_critical_message),
-            buttonText = TextResource.StringResource(R.string.retry)
+            icon = Icons.Default.MinorCrash,
+            title = TextResource.SingleStringResource(Res.string.error_critical_title),
+            message = TextResource.SingleStringResource(Res.string.error_critical_message),
+            buttonText = TextResource.SingleStringResource(Res.string.retry)
         )
     }
-}*/
+}

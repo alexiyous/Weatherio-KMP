@@ -7,7 +7,7 @@ sealed class TextResource {
 
     data class PlainText(val text: String) : TextResource()
 
-    data class ComposeStringResource(
+    data class SingleStringResource(
         val resId: StringResource,
         val formatArgs: List<String> = emptyList(),
     ) : TextResource() {
@@ -17,7 +17,7 @@ sealed class TextResource {
         ) : this(resId = resId, formatArgs = formatArgs.toList())
     }
 
-    data class ComposePluralResource(
+    data class PluralResource(
         val resId: PluralStringResource,
         val quantity: Int,
         val formatArgs: List<Int> = emptyList(),
