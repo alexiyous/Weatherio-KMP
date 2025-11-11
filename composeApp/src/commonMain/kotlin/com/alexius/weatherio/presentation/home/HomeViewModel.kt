@@ -5,7 +5,7 @@ import androidx.lifecycle.viewModelScope
 import com.alexius.weatherio.domain.models.Geolocation
 import com.alexius.weatherio.presentation.home.models.HomeState
 import com.alexius.weatherio.repository.GeolocationRepository
-import com.alexius.weatherio.utils.toAppError
+import com.alexius.weatherio.common.utils.toAppError
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update

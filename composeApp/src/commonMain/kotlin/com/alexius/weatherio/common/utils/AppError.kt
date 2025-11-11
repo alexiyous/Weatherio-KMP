@@ -1,4 +1,4 @@
-package com.alexius.weatherio.utils
+package com.alexius.weatherio.common.utils
 
 sealed class AppError(
     override val message: String,

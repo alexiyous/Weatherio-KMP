@@ -4,7 +4,7 @@ import com.alexius.weatherio.common.network.safeApiCall
 import com.alexius.weatherio.data.mapper.toDomain
 import com.alexius.weatherio.data.models.remote.GeolocationDto
 import com.alexius.weatherio.domain.models.Geolocation
-import com.alexius.weatherio.utils.Endpoints
+import com.alexius.weatherio.common.utils.Endpoints
 import io.ktor.client.HttpClient
 import io.ktor.client.request.parameter
 import io.ktor.http.path

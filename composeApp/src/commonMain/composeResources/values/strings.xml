@@ -39,5 +39,8 @@
 
     <string name="error_critical_title">Something Broke</string>
     <string name="error_critical_message">Wait a little and try again</string>
+
+    <string name="location_latitude">Lat %1$s</string>
+    <string name="location_longitude">Lon %1$s</string>
 </resources>
 

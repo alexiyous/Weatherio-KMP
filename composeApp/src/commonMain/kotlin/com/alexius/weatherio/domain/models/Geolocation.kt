@@ -1,6 +1,6 @@
 package com.alexius.weatherio.domain.models
 
-import com.alexius.weatherio.utils.FlagUrl
+import com.alexius.weatherio.common.utils.FlagUrl
 
 data class Geolocation(
     val id:Int = 0,

@@ -1,7 +1,8 @@
 @file:OptIn(ExperimentalTime::class)
 
-package com.alexius.weatherio.utils
+package com.alexius.weatherio.common.utils
 
+import com.alexius.weatherio.common.extension.capitalizeFirst
 import kotlinx.datetime.Instant
 import kotlinx.datetime.LocalDateTime
 import kotlinx.datetime.TimeZone

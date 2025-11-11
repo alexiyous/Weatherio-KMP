@@ -8,7 +8,7 @@ import com.alexius.weatherio.data.datasource.remote.GeolocationRemoteApiService
 import com.alexius.weatherio.data.datasource.remote.GeolocationRemoteApiServiceImpl
 import com.alexius.weatherio.data.datasource.repository.GeolocationRepositoryImpl
 import com.alexius.weatherio.repository.GeolocationRepository
-import com.alexius.weatherio.utils.provideExternalCoroutineScope
+import com.alexius.weatherio.common.utils.provideExternalCoroutineScope
 import org.koin.core.module.Module
 import org.koin.core.module.dsl.singleOf
 import org.koin.dsl.bind

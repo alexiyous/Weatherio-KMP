@@ -1,6 +1,6 @@
 package com.alexius.weatherio.common.network
 
-import com.alexius.weatherio.utils.AppError
+import com.alexius.weatherio.common.utils.AppError
 import io.ktor.client.HttpClient
 import io.ktor.client.call.body
 import io.ktor.client.network.sockets.ConnectTimeoutException

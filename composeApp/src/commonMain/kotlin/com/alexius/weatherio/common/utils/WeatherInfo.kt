@@ -1,4 +1,4 @@
-package com.alexius.weatherio.utils
+package com.alexius.weatherio.common.utils
 
 import org.jetbrains.compose.resources.DrawableResource
 import org.jetbrains.compose.resources.StringResource

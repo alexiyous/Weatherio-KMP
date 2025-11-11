@@ -1,4 +1,4 @@
-package com.alexius.weatherio.utils
+package com.alexius.weatherio.common.utils
 
 object Endpoints {
     fun flagUrl(countryCode:String): FlagUrl = "https://flagsapi.com/$countryCode/flat/64.png"

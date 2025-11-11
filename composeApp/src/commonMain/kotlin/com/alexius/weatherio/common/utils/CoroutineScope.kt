@@ -1,4 +1,4 @@
-package com.alexius.weatherio.utils
+package com.alexius.weatherio.common.utils
 
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.CoroutineScope

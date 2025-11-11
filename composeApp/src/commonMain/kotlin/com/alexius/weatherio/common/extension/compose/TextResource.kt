@@ -1,7 +1,7 @@
-package com.alexius.weatherio.common.extension
+package com.alexius.weatherio.common.extension.compose
 
 import androidx.compose.runtime.Composable
-import com.alexius.weatherio.utils.TextResource
+import com.alexius.weatherio.common.utils.TextResource
 import org.jetbrains.compose.resources.getPluralString
 import org.jetbrains.compose.resources.getString
 import org.jetbrains.compose.resources.pluralStringResource

@@ -8,10 +8,10 @@ import androidx.compose.material.icons.filled.NetworkLocked
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
-import com.alexius.weatherio.common.extension.asStringCompose
+import com.alexius.weatherio.common.extension.compose.asStringCompose
 import com.alexius.weatherio.presentation.utils.NavigationType
-import com.alexius.weatherio.utils.AppError
-import com.alexius.weatherio.utils.TextResource
+import com.alexius.weatherio.common.utils.AppError
+import com.alexius.weatherio.common.utils.TextResource
 import weatherio.composeapp.generated.resources.Res
 import weatherio.composeapp.generated.resources.error_critical_message
 import weatherio.composeapp.generated.resources.error_critical_title
@@ -27,7 +27,7 @@ data class ErrorEmptyState(
 )
 
 @Composable
-fun DatingErrorEmptyState(
+fun ErrorEmptyScreen(
     modifier: Modifier = Modifier,
     errorEmptyState: ErrorEmptyState,
     navigationType: NavigationType,
@@ -58,7 +58,7 @@ fun AppError.toErrorEmptyState(
         )
         is AppError.ServerError -> ErrorEmptyState(
             icon = if (this.httpCode == 500) Icons.Default.ErrorOutline
-             else Icons.Default.NetworkLocked,
+             else customNetworkErrorIcon ?: Icons.Default.NetworkLocked,
             title = TextResource.PlainText("${this.httpCode}"),
             message = TextResource.PlainText(this.message),
             buttonText = if (this.httpCode == 500) {
