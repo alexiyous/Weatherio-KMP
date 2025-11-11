@@ -8,6 +8,6 @@ import kotlinx.serialization.Serializable
 data class GeolocationDto(
     @SerialName("generationtime_ms")
     val generationtimeMs: Double,
-    @SerialName("geoLocationResults")
-    val geolocationResults: List<GeolocationResult>
+    @SerialName("results")
+    val geolocationResults: List<GeolocationResult>? = null
 )

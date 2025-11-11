@@ -5,7 +5,7 @@ import com.alexius.weatherio.domain.models.Geolocation
 import com.alexius.weatherio.common.utils.Endpoints
 
 fun GeolocationDto.toDomain(): List<Geolocation> {
-    return this.geolocationResults.map {
+    return this.geolocationResults?.map {
         Geolocation(
             id = it.id,
             name = it.name,
@@ -15,8 +15,8 @@ fun GeolocationDto.toDomain(): List<Geolocation> {
             countryId = it.countryId,
             latitude = it.latitude,
             longitude = it.longitude,
-            timeZone = it.timezone,
-            elevation = it.elevation.toDouble()
+            timeZone = it.timezone ?: "",
+            elevation = it.elevation ?: 0.0
         )
-    }
+    } ?: emptyList()
 }
