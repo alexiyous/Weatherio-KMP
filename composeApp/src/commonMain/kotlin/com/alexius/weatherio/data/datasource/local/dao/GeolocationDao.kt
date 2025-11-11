@@ -14,7 +14,7 @@ interface GeolocationDao {
     suspend fun upsertGeolocation(geoLocationEntity: GeolocationEntity)
 
     @Query("Select * From geolocation_table Limit 1")
-    fun getGeolocation(): Flow<GeolocationEntity>
+    fun getGeolocation(): Flow<GeolocationEntity?>
 
     @Query("Delete From geolocation_table")
     @Transaction

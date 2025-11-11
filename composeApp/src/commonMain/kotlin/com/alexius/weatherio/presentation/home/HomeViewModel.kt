@@ -26,29 +26,15 @@ class HomeViewModel(
             geolocationRepository.geolocation
                 .collect {
                     _homesState.update { state ->
-                        state.copy(
-                            selectedLocation = it,
-                            isLocationSelected = true
-                        )
+                        state.copy(selectedLocation = it)
                     }
             }
         }
     }
 
-    fun saveFavouriteLocation() {
+    fun saveFavouriteLocation(geolocation: Geolocation) {
         viewModelScope.launch {
-            homeState.value.selectedLocation?.let {
-                geolocationRepository.upsertGeolocation(it)
-            }
-        }
-    }
-
-    fun setSelectedLocation(geolocation: Geolocation) {
-        _homesState.update {
-            it.copy(
-                selectedLocation = geolocation.copy(id = 1),
-                isLocationSelected = true
-            )
+            geolocationRepository.upsertGeolocation(geolocation.copy(id = 1))
         }
     }
 

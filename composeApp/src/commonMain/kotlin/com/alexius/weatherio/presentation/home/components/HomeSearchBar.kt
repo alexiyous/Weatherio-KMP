@@ -1,6 +1,8 @@
 package com.alexius.weatherio.presentation.home.components
 
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.MoreVert
@@ -35,9 +37,12 @@ fun HomeSearchBar(
     var expanded by rememberSaveable { mutableStateOf(false) }
 
     SearchBar(
-        modifier = modifier,
+        modifier = modifier.fillMaxWidth(),
         inputField = {
-            Row(verticalAlignment = Alignment.CenterVertically) {
+            Row(
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.Center
+            ) {
                 IconButton(
                     onClick = onNavigateBack) {
                     Icon(
@@ -47,6 +52,7 @@ fun HomeSearchBar(
                 }
 
                 SearchBarDefaults.InputField(
+                    modifier = Modifier.fillMaxWidth(),
                     query = search,
                     onQueryChange = onSearchChange,
                     onSearch = {

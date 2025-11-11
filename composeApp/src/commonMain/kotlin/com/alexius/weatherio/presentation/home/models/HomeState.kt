@@ -4,9 +4,7 @@ import com.alexius.weatherio.domain.models.Geolocation
 import com.alexius.weatherio.common.utils.AppError
 
 data class HomeState(
-    val isLocationSelected: Boolean = false,
     val selectedLocation: Geolocation? = null,
-    val query: String = "",
     val isLoading: Boolean = false,
     val error: AppError? = null,
     val geolocations: List<Geolocation> = emptyList()

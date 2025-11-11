@@ -9,8 +9,10 @@ import com.alexius.weatherio.data.datasource.remote.GeolocationRemoteApiServiceI
 import com.alexius.weatherio.data.datasource.repository.GeolocationRepositoryImpl
 import com.alexius.weatherio.repository.GeolocationRepository
 import com.alexius.weatherio.common.utils.provideExternalCoroutineScope
+import com.alexius.weatherio.presentation.home.HomeViewModel
 import org.koin.core.module.Module
 import org.koin.core.module.dsl.singleOf
+import org.koin.core.module.dsl.viewModelOf
 import org.koin.dsl.bind
 import org.koin.dsl.module
 
@@ -27,4 +29,6 @@ val commonModule = module {
     single { provideExternalCoroutineScope() }
     singleOf(::GeolocationRemoteApiServiceImpl) bind GeolocationRemoteApiService::class
     singleOf(::GeolocationRepositoryImpl) bind GeolocationRepository::class
+
+    viewModelOf(::HomeViewModel)
 }

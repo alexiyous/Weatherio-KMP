@@ -18,9 +18,9 @@ class GeolocationRepositoryImpl(
     private val geolocationDao: GeolocationDao,
     private val externalScope: CoroutineScope
 ): GeolocationRepository {
-    override val geolocation: Flow<Geolocation>
+    override val geolocation: Flow<Geolocation?>
         get() {
-            return geolocationDao.getGeolocation().map { it.toDomain() }
+            return geolocationDao.getGeolocation().map { it?.toDomain() }
                 .shareIn(
                     scope = externalScope,
                     started = SharingStarted.Lazily,
