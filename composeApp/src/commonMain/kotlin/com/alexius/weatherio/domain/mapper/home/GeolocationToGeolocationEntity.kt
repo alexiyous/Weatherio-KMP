@@ -1,7 +1,7 @@
-package com.alexius.weatherio.domain.mapper
+package com.alexius.weatherio.domain.mapper.home
 
 import com.alexius.weatherio.data.models.locals.GeolocationEntity
-import com.alexius.weatherio.domain.models.Geolocation
+import com.alexius.weatherio.domain.models.home.Geolocation
 
 fun Geolocation.toDto(): GeolocationEntity = GeolocationEntity(
     id = this.id,

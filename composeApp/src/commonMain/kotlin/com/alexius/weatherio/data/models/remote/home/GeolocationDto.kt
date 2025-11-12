@@ -1,4 +1,4 @@
-package com.alexius.weatherio.data.models.remote
+package com.alexius.weatherio.data.models.remote.home
 
 
 import kotlinx.serialization.SerialName

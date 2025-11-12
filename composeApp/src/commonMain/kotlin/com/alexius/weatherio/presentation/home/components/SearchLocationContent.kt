@@ -26,11 +26,12 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import com.alexius.weatherio.common.ui.ErrorEmptyScreen
 import com.alexius.weatherio.common.ui.Loader
 import com.alexius.weatherio.common.ui.toErrorEmptyState
-import com.alexius.weatherio.domain.models.Geolocation
+import com.alexius.weatherio.domain.models.home.Geolocation
 import com.alexius.weatherio.presentation.home.models.HomeState
 import com.alexius.weatherio.presentation.utils.NavigationType
 import com.alexius.weatherio.common.utils.AppError
@@ -95,7 +96,7 @@ fun SearchLocationContent(
                                 CountryInfoItem(
                                     geolocation = it,
                                     backgroundColor = if (it.id == state.selectedLocation?.id) MaterialTheme.colorScheme.primary
-                                    else MaterialTheme.colorScheme.surface,
+                                    else Color.Unspecified,
                                     onFavouriteClick = { geo ->
                                         onFavouriteClick(geo)
                                     },

@@ -21,7 +21,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import coil3.request.ImageRequest
 import com.alexius.weatherio.common.utils.compose.rememberImageRequest
-import com.alexius.weatherio.domain.models.Geolocation
+import com.alexius.weatherio.domain.models.home.Geolocation
 import org.jetbrains.compose.resources.stringResource
 import weatherio.composeapp.generated.resources.Res
 import weatherio.composeapp.generated.resources.location_latitude
@@ -45,7 +45,7 @@ fun CountryInfoItem(
         horizontalArrangement = Arrangement.SpaceBetween
     ) {
         Row(
-            horizontalArrangement = Arrangement.Center,
+            horizontalArrangement = Arrangement.Start,
             verticalAlignment = Alignment.CenterVertically,
             modifier = Modifier.weight(1f)
         ) {

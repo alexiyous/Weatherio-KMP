@@ -1,7 +1,7 @@
-package com.alexius.weatherio.data.mapper
+package com.alexius.weatherio.data.mapper.home
 
-import com.alexius.weatherio.data.models.remote.GeolocationDto
-import com.alexius.weatherio.domain.models.Geolocation
+import com.alexius.weatherio.data.models.remote.home.GeolocationDto
+import com.alexius.weatherio.domain.models.home.Geolocation
 import com.alexius.weatherio.common.utils.Endpoints
 
 fun GeolocationDto.toDomain(): List<Geolocation> {

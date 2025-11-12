@@ -1,6 +1,6 @@
 package com.alexius.weatherio.presentation.home.models
 
-import com.alexius.weatherio.domain.models.Geolocation
+import com.alexius.weatherio.domain.models.home.Geolocation
 import com.alexius.weatherio.common.utils.AppError
 
 data class HomeState(

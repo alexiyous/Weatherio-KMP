@@ -1,6 +1,6 @@
 package com.alexius.weatherio.repository
 
-import com.alexius.weatherio.domain.models.Geolocation
+import com.alexius.weatherio.domain.models.home.Geolocation
 import kotlinx.coroutines.flow.Flow
 
 interface GeolocationRepository {

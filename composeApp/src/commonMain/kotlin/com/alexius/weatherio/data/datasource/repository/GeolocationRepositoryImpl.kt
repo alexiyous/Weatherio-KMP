@@ -2,9 +2,9 @@ package com.alexius.weatherio.data.datasource.repository
 
 import com.alexius.weatherio.data.datasource.local.dao.GeolocationDao
 import com.alexius.weatherio.data.datasource.remote.GeolocationRemoteApiService
-import com.alexius.weatherio.data.mapper.toDomain
-import com.alexius.weatherio.domain.mapper.toDto
-import com.alexius.weatherio.domain.models.Geolocation
+import com.alexius.weatherio.data.mapper.home.toDomain
+import com.alexius.weatherio.domain.mapper.home.toDto
+import com.alexius.weatherio.domain.models.home.Geolocation
 import com.alexius.weatherio.repository.GeolocationRepository
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.cancel

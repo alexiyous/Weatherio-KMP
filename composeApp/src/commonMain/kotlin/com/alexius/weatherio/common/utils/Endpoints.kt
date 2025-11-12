@@ -11,9 +11,9 @@ object Endpoints {
 object ApiParameters{
     const val LATITUDE = "latitude"
     const val LONGITUDE = "longitude"
-    const val DAILY = "daily"
-    const val CURRENT_WEATHER = "current"
-    const val HOURLY = "hourly"
+    const val DAILY = "dailyDto"
+    const val CURRENT_WEATHER = "currentDto"
+    const val HOURLY = "hourlyDto"
     const val TIME_FORMAT = "timeformat"
     const val TIMEZONE = "timezone"
     const val GeoName = "name"

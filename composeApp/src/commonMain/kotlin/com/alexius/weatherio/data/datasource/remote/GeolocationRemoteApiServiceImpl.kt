@@ -1,9 +1,9 @@
 package com.alexius.weatherio.data.datasource.remote
 
 import com.alexius.weatherio.common.network.safeApiCall
-import com.alexius.weatherio.data.mapper.toDomain
-import com.alexius.weatherio.data.models.remote.GeolocationDto
-import com.alexius.weatherio.domain.models.Geolocation
+import com.alexius.weatherio.data.mapper.home.toDomain
+import com.alexius.weatherio.data.models.remote.home.GeolocationDto
+import com.alexius.weatherio.domain.models.home.Geolocation
 import com.alexius.weatherio.common.utils.Endpoints
 import io.ktor.client.HttpClient
 import io.ktor.client.request.parameter

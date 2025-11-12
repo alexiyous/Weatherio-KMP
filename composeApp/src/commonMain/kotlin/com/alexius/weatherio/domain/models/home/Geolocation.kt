@@ -1,4 +1,4 @@
-package com.alexius.weatherio.domain.models
+package com.alexius.weatherio.domain.models.home
 
 import com.alexius.weatherio.common.utils.FlagUrl
 
