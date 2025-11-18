@@ -3,7 +3,7 @@ package com.alexius.weatherio.domain.models.forecast
 import com.alexius.weatherio.common.utils.WeatherInfoItem
 
 data class Hourly(
-    val hourlyInfoItem: List<WeatherInfoItem>
+    val hourlyInfoItem: List<HourlyInfoItem>
 )
 
 data class HourlyInfoItem(

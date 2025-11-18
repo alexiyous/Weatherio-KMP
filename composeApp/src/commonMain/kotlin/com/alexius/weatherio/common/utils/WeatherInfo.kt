@@ -16,12 +16,13 @@ object WeatherInfo {
         Res.string.wind_direction_north_west
     )
 
-    fun getWindDirection(degree: Double): StringResource {
+    fun getWindDirection(degree: Double): TextResource {
         var normalized = degree % 360
         if (normalized < 0) normalized += 360
 
-        val index = ((normalized + 22.5) / 45).toInt() % 8  // Add 22.5° offset
-        return windDirections[index]
+        val index = ((normalized + 22.5) / 45).toInt() % 8
+
+        return TextResource.SingleStringResource(windDirections[index])
     }
 
     fun getWeatherInfo(code: Int): WeatherInfoItem {
