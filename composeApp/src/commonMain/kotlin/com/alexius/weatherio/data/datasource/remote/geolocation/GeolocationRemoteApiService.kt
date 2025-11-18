@@ -1,4 +1,4 @@
-package com.alexius.weatherio.data.datasource.remote
+package com.alexius.weatherio.data.datasource.remote.geolocation
 
 import com.alexius.weatherio.domain.models.home.Geolocation
 

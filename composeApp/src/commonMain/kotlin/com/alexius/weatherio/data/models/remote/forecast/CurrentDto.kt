@@ -11,11 +11,13 @@ data class CurrentDto(
     @SerialName("is_day")
     val isDay: Int = 0,
     @SerialName("temperature_2m")
-    val temperature2m: Int = 0,
+    val temperature2m: Double = 0.0,
     @SerialName("time")
     val time: Long = 0,
     @SerialName("wind_direction_10m")
-    val windDirection10m: Int = 0,
+    val windDirection10m: Double = 0.0,
     @SerialName("wind_speed_10m")
-    val windSpeed10m: Double = 0.0
+    val windSpeed10m: Double = 0.0,
+    @SerialName("weather_code")
+    val weatherCode: Int = 0,
 )

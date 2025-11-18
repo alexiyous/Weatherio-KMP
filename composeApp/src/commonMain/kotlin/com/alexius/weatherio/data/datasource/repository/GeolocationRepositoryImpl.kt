@@ -1,7 +1,7 @@
 package com.alexius.weatherio.data.datasource.repository
 
 import com.alexius.weatherio.data.datasource.local.dao.GeolocationDao
-import com.alexius.weatherio.data.datasource.remote.GeolocationRemoteApiService
+import com.alexius.weatherio.data.datasource.remote.geolocation.GeolocationRemoteApiService
 import com.alexius.weatherio.data.mapper.home.toDomain
 import com.alexius.weatherio.domain.mapper.home.toDto
 import com.alexius.weatherio.domain.models.home.Geolocation

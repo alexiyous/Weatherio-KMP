@@ -42,5 +42,8 @@
 
     <string name="location_latitude">Lat %1$s</string>
     <string name="location_longitude">Lon %1$s</string>
+
+    <string name="weather_status">Weather Status: %1$s</string>
+    <string name="wind_speed">Wind Speed: %1$f</string>
 </resources>
 

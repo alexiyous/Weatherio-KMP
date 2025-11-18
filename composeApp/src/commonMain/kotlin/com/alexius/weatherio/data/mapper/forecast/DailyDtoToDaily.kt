@@ -7,18 +7,18 @@ import com.alexius.weatherio.data.models.remote.forecast.DailyDto
 import com.alexius.weatherio.domain.models.forecast.Daily
 import com.alexius.weatherio.domain.models.forecast.DailyWeatherInfo
 
-fun DailyDto.toDomain(): Daily {
+fun DailyDto.toDomain(timezone: String): Daily {
     return Daily(
         dailyWeatherInfo = this.apparentTemperatureMin.mapIndexed { index, temp ->
             DailyWeatherInfo(
                 temperatureMax = this.apparentTemperatureMax[index],
                 temperatureMin = temp,
-                time = formatUnixToDay(this.time[index]),
+                time = formatUnixToDay(this.time[index], timezone),
                 weatherStatus = WeatherInfo.getWeatherInfo(this.weatherCode[index]),
                 windDirection = WeatherInfo.getWindDirection(this.windDirection10mDominant[index]),
                 windSpeed = this.windSpeed10mMax[index],
-                sunrise = formatUnixToHour(this.sunrise[index]),
-                sunset = formatUnixToHour(this.sunset[index]),
+                sunrise = formatUnixToHour(this.sunrise[index], timezone),
+                sunset = formatUnixToHour(this.sunset[index], timezone),
                 uvIndex = this.uvIndexMax[index]
             )
         }

@@ -16,7 +16,6 @@ object ApiParameters{
     const val HOURLY = "hourlyDto"
     const val TIME_FORMAT = "timeformat"
     const val TIMEZONE = "timezone"
-    const val GeoName = "name"
 }
 
 typealias FlagUrl = String
