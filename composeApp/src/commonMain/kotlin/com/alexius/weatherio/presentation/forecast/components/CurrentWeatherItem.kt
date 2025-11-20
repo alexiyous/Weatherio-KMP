@@ -12,11 +12,13 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import com.alexius.weatherio.common.extension.compose.asStringCompose
 import com.alexius.weatherio.domain.models.forecast.CurrentWeather
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
 import weatherio.composeapp.generated.resources.Res
 import weatherio.composeapp.generated.resources.weather_status
+import weatherio.composeapp.generated.resources.wind_speed
 
 const val DEGREE_SYMBOL = "\u00B0C"
 
@@ -49,8 +51,10 @@ fun CurrentWeatherItem(
             color = MaterialTheme.colorScheme.onSurfaceVariant
         )
         Spacer(Modifier.height(4.dp))
-        /*Text(
-            text =
-        )*/
+        Text(
+            text = stringResource(Res.string.wind_speed, currentWeather.windSpeed, currentWeather.windDirection.asStringCompose()),
+            style = MaterialTheme.typography.bodyMedium,
+            color = MaterialTheme.colorScheme.onSurfaceVariant,
+        )
     }
 }
