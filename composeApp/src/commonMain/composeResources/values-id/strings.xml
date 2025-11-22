@@ -52,5 +52,8 @@
     <string name="sunset">Matahari Terbenam %1$s</string>
 
     <string name="today">Hari Ini</string>
+
+    <string name="no_location_selected_title">Tidak Ada Lokasi yang Dipilih</string>
+    <string name="no_location_selected_message">Silakan pilih lokasi untuk melihat informasi cuaca.</string>
 </resources>
 

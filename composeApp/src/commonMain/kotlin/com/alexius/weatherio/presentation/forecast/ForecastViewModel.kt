@@ -47,13 +47,12 @@ class ForecastViewModel(
                     "wind_direction_10m",
                     "is_day",
                     "weather_code",
-                    "time"
                 ),
                 hourlyWeather = arrayOf(
                     "weather_code",
                     "temperature_2m",
                 ),
-                timeFormat = "unixtime",
+                timeFormat = "unixtime"
             ).fold(
                 onSuccess = {
                     _forecastState.update { state ->
@@ -79,6 +78,11 @@ class ForecastViewModel(
     private suspend fun getGeolocation() {
         geolocationRepository.geolocation.collect { geolocation ->
             fetchWeatherData(geolocation)
+            _forecastState.update {
+                it.copy(
+                    selectedLocation = geolocation
+                )
+            }
         }
     }
 }

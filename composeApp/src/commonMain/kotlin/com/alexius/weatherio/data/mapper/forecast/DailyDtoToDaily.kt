@@ -9,9 +9,9 @@ import com.alexius.weatherio.domain.models.forecast.DailyWeatherInfo
 
 fun DailyDto.toDomain(timezone: String): Daily {
     return Daily(
-        dailyWeatherInfo = this.apparentTemperatureMin.mapIndexed { index, temp ->
+        dailyWeatherInfo = this.temperature2mMin.mapIndexed { index, temp ->
             DailyWeatherInfo(
-                temperatureMax = this.apparentTemperatureMax[index],
+                temperatureMax = this.temperature2mMax[index],
                 temperatureMin = temp,
                 time = formatUnixToDay(this.time[index], timezone),
                 weatherStatus = WeatherInfo.getWeatherInfo(this.weatherCode[index]),

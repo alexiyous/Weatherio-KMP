@@ -12,6 +12,7 @@ import com.alexius.weatherio.common.utils.provideExternalCoroutineScope
 import com.alexius.weatherio.data.datasource.remote.forecast.ForecastRemoteApiService
 import com.alexius.weatherio.data.datasource.remote.forecast.ForecastRemoteApiServiceImpl
 import com.alexius.weatherio.data.datasource.repository.ForecastRepositoryImpl
+import com.alexius.weatherio.presentation.forecast.ForecastViewModel
 import com.alexius.weatherio.presentation.home.HomeViewModel
 import com.alexius.weatherio.repository.ForecastRepository
 import org.koin.core.module.Module
@@ -37,4 +38,5 @@ val commonModule = module {
     singleOf(::ForecastRepositoryImpl) bind ForecastRepository::class
 
     viewModelOf(::HomeViewModel)
+    viewModelOf(::ForecastViewModel)
 }

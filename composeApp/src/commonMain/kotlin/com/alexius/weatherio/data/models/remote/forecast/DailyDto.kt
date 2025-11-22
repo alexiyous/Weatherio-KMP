@@ -6,10 +6,10 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class DailyDto(
-    @SerialName("apparent_temperature_max")
-    val apparentTemperatureMax: List<Double> = listOf(),
-    @SerialName("apparent_temperature_min")
-    val apparentTemperatureMin: List<Double> = listOf(),
+    @SerialName("temperature_2m_max")
+    val temperature2mMax: List<Double> = listOf(),
+    @SerialName("temperature_2m_min")
+    val temperature2mMin: List<Double> = listOf(),
     @SerialName("sunrise")
     val sunrise: List<Long> = listOf(),
     @SerialName("sunset")

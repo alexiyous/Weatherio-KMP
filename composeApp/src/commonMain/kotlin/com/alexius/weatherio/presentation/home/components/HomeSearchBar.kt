@@ -43,8 +43,11 @@ fun HomeSearchBar(
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.Center
             ) {
-                IconButton(
-                    onClick = onNavigateBack) {
+                IconButton(onClick = {
+                    onNavigateBack()
+                    expanded = false
+                }
+                ) {
                     Icon(
                         imageVector = Icons.AutoMirrored.Filled.ArrowBack,
                         contentDescription = "Back"

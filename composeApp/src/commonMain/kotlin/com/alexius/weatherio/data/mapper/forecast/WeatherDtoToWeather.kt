@@ -5,9 +5,9 @@ import com.alexius.weatherio.domain.models.forecast.Weather
 
 fun WeatherDto.toDomain(): Weather {
     return Weather(
-        currentWeather = this.currentDto.toDomain(this.timezone),
-        daily = this.dailyDto.toDomain(this.timezone),
-        hourly = this.hourlyDto.toDomain(this.timezone),
+        currentWeather = this.current.toDomain(this.timezone),
+        daily = this.daily.toDomain(this.timezone),
+        hourly = this.hourly.toDomain(this.timezone),
         timezone = this.timezone
     )
 }

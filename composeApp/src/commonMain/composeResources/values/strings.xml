@@ -52,5 +52,8 @@
     <string name="sunset">Sunset %1$s</string>
 
     <string name="today">Today</string>
+
+    <string name="no_location_selected_title">No Location Selected</string>
+    <string name="no_location_selected_message">Please select a location to view weather information.</string>
 </resources>
 

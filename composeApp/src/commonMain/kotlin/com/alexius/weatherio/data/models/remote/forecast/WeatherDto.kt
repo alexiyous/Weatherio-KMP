@@ -6,20 +6,20 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class WeatherDto(
-    @SerialName("currentDto")
-    val currentDto: CurrentDto = CurrentDto(),
+    @SerialName("current")
+    val current: CurrentDto = CurrentDto(),
     @SerialName("current_units")
     val currentUnits: CurrentUnits = CurrentUnits(),
-    @SerialName("dailyDto")
-    val dailyDto: DailyDto = DailyDto(),
+    @SerialName("daily")
+    val daily: DailyDto = DailyDto(),
     @SerialName("daily_units")
     val dailyUnits: DailyUnits = DailyUnits(),
     @SerialName("elevation")
-    val elevation: Int = 0,
+    val elevation: Double = 0.0,
     @SerialName("generationtime_ms")
     val generationtimeMs: Double = 0.0,
-    @SerialName("hourlyDto")
-    val hourlyDto: HourlyDto = HourlyDto(),
+    @SerialName("hourly")
+    val hourly: HourlyDto = HourlyDto(),
     @SerialName("hourly_units")
     val hourlyUnits: HourlyUnits = HourlyUnits(),
     @SerialName("latitude")
