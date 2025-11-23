@@ -72,32 +72,6 @@ class ForecastViewModel(
                         TimeUtils.isTodayDate(daily.time)
                     }
 
-                    Napier.d("Today Weather Info: ${todayWeatherInfo}")
-
-                    val now = Clock.System.now()
-                    val timeZone = TimeZone.currentSystemDefault()
-                    val nowDateTime = now.toLocalDateTime(timeZone)
-
-                    val nearestHourlyInfo = weather.hourly.hourlyInfoItem.minByOrNull { hourly ->
-                        val timeParts = hourly.time.split(':')
-                        val hour = timeParts[0].toInt()
-                        val minute = timeParts[1].toInt()
-
-                        val hourlyDateTime = LocalDateTime(
-                            nowDateTime.year,
-                            nowDateTime.month,
-                            nowDateTime.dayOfMonth,
-                            hour,
-                            minute
-                        )
-                        val hourlyInstant = hourlyDateTime.toInstant(timeZone)
-
-                        abs(now.epochSeconds - hourlyInstant.epochSeconds)
-                    }
-
-                    Napier.d("Nearest temperature on current time from hourly: $nearestHourlyInfo")
-
-
                     _forecastState.update { state ->
                         state.copy(
                             weather = weather,

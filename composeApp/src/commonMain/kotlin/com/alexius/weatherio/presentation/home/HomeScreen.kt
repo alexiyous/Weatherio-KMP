@@ -59,9 +59,10 @@ fun HomeScreen(
                 state = state,
                 search = search,
                 onSearchChange = { search = it },
-                onFavouriteClick = {
+                onClickLocation = {
                     homeViewModel.saveFavouriteLocation(it)
                     showSearchLocation = false
+                    search = ""
                 },
                 onSubmit = { homeViewModel.fetchGeolocation(search) },
                 onNavigateBack = {

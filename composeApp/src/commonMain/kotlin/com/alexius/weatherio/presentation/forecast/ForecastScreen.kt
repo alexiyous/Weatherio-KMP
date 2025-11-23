@@ -135,7 +135,7 @@ fun ForecastScreen(
                                         dataPoints = weather.hourly.hourlyInfoItem,
                                         xValueMapper = { it.time.take(2) },
                                         yValueMapper = { it.temperature.toFloat() },
-                                        modifier = Modifier.fillMaxWidth().height(250.dp),
+                                        modifier = Modifier.fillMaxWidth().height(250.dp).navigationBarsPadding(),
                                         graphTitle = "Temperature Over Time",
                                     )
                                 }

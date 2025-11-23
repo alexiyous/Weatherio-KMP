@@ -32,7 +32,7 @@ fun SearchLocationContent(
     state: HomeState,
     search: String,
     onSearchChange: (String) -> Unit,
-    onFavouriteClick: (Geolocation) -> Unit,
+    onClickLocation: (Geolocation) -> Unit,
     onSubmit: () -> Unit,
     onNavigateBack: () -> Unit,
     modifier: Modifier = Modifier
@@ -74,14 +74,16 @@ fun SearchLocationContent(
                     }
 
                     "DATA" -> {
-                        LazyColumn {
+                        LazyColumn(
+                            Modifier.navigationBarsPadding()
+                        ) {
                             items(state.geolocations) {
                                 CountryInfoItem(
                                     geolocation = it,
                                     backgroundColor = if (it.id == state.selectedLocation?.id) MaterialTheme.colorScheme.primary
                                     else Color.Unspecified,
                                     onFavouriteClick = { geo ->
-                                        onFavouriteClick(geo)
+                                        onClickLocation(geo)
                                     },
                                 )
                             }
@@ -124,7 +126,7 @@ fun SearchLocationContentPreview() {
             ),
             search = "London",
             onSearchChange = {},
-            onFavouriteClick = {},
+            onClickLocation = {},
             onSubmit = {},
             onNavigateBack = {})
     }
