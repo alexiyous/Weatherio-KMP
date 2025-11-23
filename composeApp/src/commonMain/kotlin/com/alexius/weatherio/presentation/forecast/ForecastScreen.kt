@@ -82,7 +82,10 @@ fun ForecastScreen(
                         ) {
                             item {
                                 state.weather?.let { weather ->
-                                    Column(verticalArrangement = spacedBy(16.dp)) {
+                                    Column(
+                                        horizontalAlignment = Alignment.CenterHorizontally,
+                                        verticalArrangement = spacedBy(16.dp)
+                                    ) {
                                         CurrentWeatherItem(
                                             currentWeather = weather.currentWeather
                                         )
