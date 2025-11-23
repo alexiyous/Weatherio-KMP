@@ -29,6 +29,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.dropShadow
 import androidx.compose.ui.graphics.BlendMode
 import androidx.compose.ui.graphics.Color
@@ -154,16 +155,16 @@ fun ForecastScreen(
                             blendMode = BlendMode.SrcOver
                         )
                     )
+                    .clip(RoundedCornerShape(16.dp))
                     .background(
                         color = MaterialTheme.colorScheme.surface,
-                        shape = RoundedCornerShape(16.dp)
                     )
-                    .padding(horizontal = 12.dp, vertical = 8.dp)
                     .clickable(
                         interactionSource = MutableInteractionSource(),
                         indication = ripple(),
                         onClick = { onSearchClick() }
-                    ),
+                    )
+                    .padding(horizontal = 12.dp, vertical = 8.dp),
                 horizontalArrangement = Arrangement.Center,
                 verticalAlignment = Alignment.CenterVertically
             ) {

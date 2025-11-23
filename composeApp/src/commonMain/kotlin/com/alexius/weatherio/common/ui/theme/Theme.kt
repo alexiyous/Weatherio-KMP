@@ -14,7 +14,9 @@ private val LightColorScheme = lightColorScheme(
     surface = NeuLightSurface,
     onSurface = NeuLightOnSurface,
     surfaceVariant = NeuLightSurface,
-    onSurfaceVariant = NeuLightOnSurfaceVariant
+    onSurfaceVariant = NeuLightOnSurfaceVariant,
+    surfaceBright = NeuLightSurfaceBright,
+    surfaceDim = NeuLightSurfaceDim
 )
 
 private val DarkColorScheme = darkColorScheme(
@@ -25,7 +27,9 @@ private val DarkColorScheme = darkColorScheme(
     surface = NeuDarkSurface,
     onSurface = NeuDarkOnSurface,
     surfaceVariant = NeuDarkSurface,
-    onSurfaceVariant = NeuDarkOnSurfaceVariant
+    onSurfaceVariant = NeuDarkOnSurfaceVariant,
+    surfaceBright = NeuDarkSurfaceBright,
+    surfaceDim = NeuDarkSurfaceDim
 )
 
 @Composable

@@ -27,6 +27,8 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.DpOffset
 import androidx.compose.ui.unit.dp
 import com.alexius.weatherio.common.ui.theme.WeatherIoTheme
+import com.alexius.weatherio.common.utils.compose.neumorphicDown
+import com.alexius.weatherio.common.utils.compose.neumorphicUp
 import com.alexius.weatherio.presentation.utils.NavigationType
 import org.jetbrains.compose.ui.tooling.preview.Preview
 
@@ -49,7 +51,12 @@ fun EmptyContent(
     ) {
         Spacer(Modifier.weight(1f))
         Image(
-            modifier = Modifier.sizeIn(200.dp, 200.dp).padding(horizontal = if (isFullscreen) 42.dp else 53.dp),
+            modifier = Modifier
+                .neumorphicDown(
+                    shape = RoundedCornerShape(50),
+                    shadowPadding = 4.dp,
+                )
+                .sizeIn(200.dp, 200.dp).padding(horizontal = if (isFullscreen) 42.dp else 53.dp),
             imageVector = image,
             contentDescription = null,
         )
@@ -85,21 +92,13 @@ fun EmptyContent(
                     .height(52.dp)
                     .padding(bottom = 8.dp)
                     .padding(horizontal = buttonPaddingHorizontal)
-                    .dropShadow(
-                        shape = RoundedCornerShape(20.dp),
-                        shadow = Shadow(
-                            color = Color.Black.copy(0.25f),
-                            offset = DpOffset(4.dp, 4.dp),
-                            radius = 10.dp,
-                            spread = 0.dp,
-                            blendMode = BlendMode.SrcOver
-                        )
+                    .neumorphicDown(
+                        shape = ButtonDefaults.shape,
+                        shadowPadding = 3.dp,
                     ),
                 onClick = { buttonAction?.invoke() },
-                shape = RoundedCornerShape(20.dp),
                 colors = ButtonDefaults.buttonColors(
-                    containerColor = MaterialTheme.colorScheme.surface,
-                    contentColor = MaterialTheme.colorScheme.onSurface
+                    containerColor = Color.Transparent,
                 )
             ) {
                 Text(

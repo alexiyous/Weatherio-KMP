@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Bookmark
@@ -27,6 +28,8 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.shadow.Shadow
 import androidx.compose.ui.unit.DpOffset
 import androidx.compose.ui.unit.dp
+import com.alexius.weatherio.common.utils.compose.neumorphicDown
+import com.alexius.weatherio.common.utils.compose.neumorphicUp
 import com.alexius.weatherio.common.utils.compose.rememberImageRequest
 import com.alexius.weatherio.domain.models.home.Geolocation
 import org.jetbrains.compose.resources.stringResource
@@ -53,19 +56,9 @@ fun CountryInfoItem(
                 indication = ripple(),
                 onClick = { onFavouriteClick(geolocation) }
             )
-            .dropShadow(
-                shape = RoundedCornerShape(16.dp),
-                shadow = Shadow(
-                    color = Color.Black.copy(0.25f),
-                    offset = DpOffset(4.dp, 4.dp),
-                    radius = 10.dp,
-                    spread = 0.dp,
-                    blendMode = BlendMode.SrcOver
-                )
-            )
-            .background(
-                color = bgColor,
-                shape = RoundedCornerShape(16.dp)
+            .neumorphicDown(
+                shape = RoundedCornerShape(20.dp),
+                shadowPadding = 4.dp,
             )
             .padding(16.dp),
         horizontalArrangement = Arrangement.SpaceBetween,

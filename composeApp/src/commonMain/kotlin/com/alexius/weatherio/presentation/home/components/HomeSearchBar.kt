@@ -3,6 +3,7 @@ package com.alexius.weatherio.presentation.home.components
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
@@ -30,6 +31,8 @@ import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.unit.DpOffset
 import androidx.compose.ui.unit.dp
+import com.alexius.weatherio.common.utils.compose.neumorphicDown
+import com.alexius.weatherio.common.utils.compose.neumorphicUp
 import org.jetbrains.compose.resources.stringResource
 import weatherio.composeapp.generated.resources.Res
 import weatherio.composeapp.generated.resources.country_search_input_field_text
@@ -53,6 +56,10 @@ fun HomeSearchBar(
             .fillMaxWidth(),
         inputField = {
             Row(
+                modifier = Modifier .neumorphicDown(
+                    shape = RoundedCornerShape(20.dp),
+                    shadowPadding = 4.dp,
+                ),
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.Center
             ) {
@@ -100,10 +107,8 @@ fun HomeSearchBar(
         onExpandedChange = { expanded = it },
         colors = SearchBarDefaults.colors(
             containerColor = MaterialTheme.colorScheme.surface,
-            dividerColor = MaterialTheme.colorScheme.outlineVariant
+            dividerColor = MaterialTheme.colorScheme.primary
         ),
-        tonalElevation = 0.dp,
-        shadowElevation = 8.dp,
         windowInsets = SearchBarDefaults.windowInsets
     ){
         content()

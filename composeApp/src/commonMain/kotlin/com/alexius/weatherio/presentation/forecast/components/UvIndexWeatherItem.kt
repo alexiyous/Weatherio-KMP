@@ -18,6 +18,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.shadow.Shadow
 import androidx.compose.ui.unit.DpOffset
 import androidx.compose.ui.unit.dp
+import com.alexius.weatherio.common.utils.compose.neumorphicDown
 import com.alexius.weatherio.domain.models.forecast.DailyWeatherInfo
 import org.jetbrains.compose.resources.stringResource
 import weatherio.composeapp.generated.resources.Res
@@ -31,19 +32,9 @@ fun UvIndexWeatherItem(
     Column(
         modifier = modifier
             .padding(horizontal = 8.dp)
-            .dropShadow(
-                shape = RoundedCornerShape(16.dp),
-                shadow = Shadow(
-                    color = Color.Black.copy(0.25f),
-                    offset = DpOffset(4.dp, 4.dp),
-                    radius = 10.dp,
-                    spread = 0.dp,
-                    blendMode = BlendMode.SrcOver
-                )
-            )
-            .background(
-                color = MaterialTheme.colorScheme.surface,
-                shape = RoundedCornerShape(16.dp)
+            .neumorphicDown(
+                shape = RoundedCornerShape(20.dp),
+                shadowPadding = 4.dp,
             )
             .padding(16.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
