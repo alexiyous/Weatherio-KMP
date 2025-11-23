@@ -1,48 +1,77 @@
-This is a Kotlin Multiplatform project targeting Android, iOS, Desktop (JVM).
+# Weatherio 🌦️
 
-* [/composeApp](./composeApp/src) is for code that will be shared across your Compose Multiplatform applications.
-  It contains several subfolders:
-  - [commonMain](./composeApp/src/commonMain/kotlin) is for code that’s common for all targets.
-  - Other folders are for Kotlin code that will be compiled for only the platform indicated in the folder name.
-    For example, if you want to use Apple’s CoreCrypto for the iOS part of your Kotlin app,
-    the [iosMain](./composeApp/src/iosMain/kotlin) folder would be the right place for such calls.
-    Similarly, if you want to edit the Desktop (JVM) specific part, the [jvmMain](./composeApp/src/jvmMain/kotlin)
-    folder is the appropriate location.
+**Weatherio** is a modern, cross-platform weather application built with **Kotlin Multiplatform (KMP)** and **Compose Multiplatform**. It provides real-time weather updates, forecasts, and background notifications across Android, iOS, and Desktop.
 
-* [/iosApp](./iosApp/iosApp) contains iOS applications. Even if you’re sharing your UI with Compose Multiplatform,
-  you need this entry point for your iOS app. This is also where you should add SwiftUI code for your project.
+This project demonstrates the power of sharing logic and UI code between platforms while accessing platform-specific features like WorkManager, Notifications, and System Tray integration.
 
-### Build and Run Android Application
+> **Note:** This project was inspired by [Forecastly](https://github.com/Hoodlab/Forecastly). While the core structure provided a learning foundation, **Weatherio** includes significant customizations, new features (like background sync & cross-platform notifications), and improvements aligned with a specific product vision.
 
-To build and run the development version of the Android app, use the run configuration from the run widget
-in your IDE’s toolbar or build it directly from the terminal:
-- on macOS/Linux
-  ```shell
-  ./gradlew :composeApp:assembleDebug
-  ```
-- on Windows
-  ```shell
-  .\gradlew.bat :composeApp:assembleDebug
-  ```
+## ✨ Features
 
-### Build and Run Desktop (JVM) Application
+*   **Cross-Platform Support**: Single codebase running seamlessly on Android, iOS, and Desktop (JVM).
+*   **Neumorphism Design**: A customized, modern UI aesthetic featuring soft shadows and depth effects for a unique visual experience.
+*   **Real-Time Weather**: Accurate current weather conditions including temperature, wind, UV index, and sunset times.
+*   **Detailed Forecasts**:
+    *   Hourly temperature trends visualized with custom line graphs.
+    *   Daily weather summaries.
+*   **Background Synchronization**:
+    *   **Android**: Uses Jetpack **WorkManager** for reliable periodic background updates (every 30 mins).
+    *   **Desktop/iOS**: Custom coroutine-based schedulers for active-session updates.
+*   **Smart Notifications**:
+    *   Get notified about the next hour's forecast automatically.
+    *   **Android**: Native Notification Channels & Permissions (Android 13+ support).
+    *   **iOS**: `UNUserNotificationCenter` integration.
+    *   **Desktop**: System Tray notifications.
+*   **Geolocation**: Automatic location detection to serve local weather.
+*   **Robust Error Handling**: Custom Ktor implementation to gracefully handle network issues, API errors, and edge cases.
 
-To build and run the development version of the desktop app, use the run configuration from the run widget
-in your IDE’s toolbar or run it directly from the terminal:
-- on macOS/Linux
-  ```shell
-  ./gradlew :composeApp:run
-  ```
-- on Windows
-  ```shell
-  .\gradlew.bat :composeApp:run
-  ```
+## 🛠️ Tech Stack
 
-### Build and Run iOS Application
+### Core
+*   **Language**: [Kotlin](https://kotlinlang.org/)
+*   **UI Framework**: [Compose Multiplatform](https://www.jetbrains.com/lp/compose-multiplatform/) (Material 3)
+*   **Architecture**: MVVM with Clean Architecture principles
 
-To build and run the development version of the iOS app, use the run configuration from the run widget
-in your IDE’s toolbar or open the [/iosApp](./iosApp) directory in Xcode and run it from there.
+### Libraries & Tools
+*   **Dependency Injection**: [Koin](https://insert-koin.io/)
+*   **Networking**: [Ktor](https://ktor.io/) (with Custom Error Handling)
+*   **Image Loading**: [Coil 3](https://coil-kt.github.io/coil/)
+*   **Navigation**: [Jetbrains Compose Navigation](https://www.jetbrains.com/help/kotlin-multiplatform-dev/compose-navigation-routing.html)
+*   **Local Storage**: [Room](https://developer.android.com/kotlin/multiplatform/room) (SQLite)
+*   **Date & Time**: [Kotlinx Datetime](https://github.com/Kotlin/kotlinx-datetime)
+*   **Logging**: [Napier](https://github.com/AAkira/Napier)
+*   **Background Work**:
+    *   `androidx.work` (Android)
+    *   Kotlin Coroutines (Shared)
 
----
+## 📸 Screenshots
 
-Learn more about [Kotlin Multiplatform](https://www.jetbrains.com/help/kotlin-multiplatform-dev/get-started.html)…
+| Home Screen | Forecast Details | Desktop View |
+|:-----------:|:----------------:|:------------:|
+| <!-- Add Screenshot --> | <!-- Add Screenshot --> | <!-- Add Screenshot --> |
+
+## 🚀 Getting Started
+
+### Prerequisites
+*   **Android Studio** (Koala or newer recommended)
+*   **JDK 17** or higher
+*   **Xcode** (for iOS target)
+
+### Installation
+1.  **Clone the repository**
+    ```bash
+    git clone https://github.com/yourusername/weatherio.git
+    cd weatherio
+    ```
+
+2.  **Open in Android Studio**
+    *   Wait for Gradle sync to complete.
+
+3.  **Run the App**
+    *   **Android**: Select `composeApp` configuration and run on an emulator/device.
+    *   **Desktop**: Run the Gradle task `composeApp:run`.
+    *   **iOS**: Open `iosApp/iosApp.xcodeproj` in Xcode or run via KMM plugin in Android Studio.
+
+## 🤝 Acknowledgements
+
+Special shoutout to **[Hoodlab](https://github.com/Hoodlab)** and their project **[Forecastly](https://github.com/Hoodlab/Forecastly)**. This project served as an excellent learning resource and starting point for Weatherio's development.

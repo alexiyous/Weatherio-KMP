@@ -3,6 +3,8 @@ package com.alexius.weatherio.presentation.forecast.components
 import androidx.compose.foundation.basicMarquee
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.MaterialTheme
@@ -10,6 +12,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.alexius.weatherio.common.utils.compose.neumorphicDown
 import com.alexius.weatherio.domain.models.forecast.DailyWeatherInfo
@@ -24,26 +27,28 @@ fun UvIndexWeatherItem(
 ) {
     Column(
         modifier = modifier
-            .padding(horizontal = 8.dp)
+            .padding(horizontal = 4.dp)
             .neumorphicDown(
-                shape = RoundedCornerShape(20.dp),
+                shape = RoundedCornerShape(24.dp),
                 shadowPadding = 4.dp,
             )
-            .padding(16.dp),
+            .padding(vertical = 20.dp, horizontal = 16.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
     ) {
         Text(
             text = stringResource(Res.string.uv_index),
-            style = MaterialTheme.typography.headlineSmall,
-            color = MaterialTheme.colorScheme.onSurfaceVariant,
+            style = MaterialTheme.typography.titleMedium,
+            color = MaterialTheme.colorScheme.secondary,
             modifier = Modifier.basicMarquee(),
         )
+        Spacer(Modifier.height(4.dp))
         Text(
             text = weatherInfo.uvIndex.toString(),
-            style = MaterialTheme.typography.displayMedium,
+            style = MaterialTheme.typography.headlineMedium.copy(fontWeight = FontWeight.Bold),
             color = MaterialTheme.colorScheme.onSurface
         )
+        Spacer(Modifier.height(8.dp))
         Text(
             text = stringResource(weatherInfo.weatherStatus.info),
             style = MaterialTheme.typography.bodyMedium,

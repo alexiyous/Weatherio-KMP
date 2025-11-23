@@ -42,33 +42,36 @@ fun <T> LineGraph(
     labelColor: Color = MaterialTheme.colorScheme.onSurfaceVariant,
     labelFontSize: TextUnit = 12.sp,
     gradientColors: List<Color> = listOf(
-        MaterialTheme.colorScheme.primary.copy(alpha = 0.4f),
+        MaterialTheme.colorScheme.primary.copy(alpha = 0.3f),
         MaterialTheme.colorScheme.primary.copy(alpha = 0.0f)
     )
 ) {
     if (dataPoints.isEmpty()) return
 
     val textMeasurer = rememberTextMeasurer()
-    val padding = 16.dp
+    val padding = 24.dp
+
+    val circleColor = MaterialTheme.colorScheme.surface
+    val titleTextColor = MaterialTheme.colorScheme.onSurface
 
     Box(
         modifier = modifier
             .fillMaxWidth()
             .neumorphicUp(
-                shape = RoundedCornerShape(20.dp),
-                shadowPadding = 4.dp,
+                shape = RoundedCornerShape(24.dp),
+                shadowPadding = 6.dp,
             )
-            .height(300.dp)
+            .height(320.dp)
             .padding(padding)
     ) {
         Canvas(
-            modifier = Modifier.fillMaxSize()
+            modifier = Modifier.fillMaxSize().padding(top = 20.dp) // Top padding for title
         ) {
             val width = size.width
             val height = size.height
 
             val xAxisSpace = 30.dp.toPx()
-            val yAxisSpace = 20.dp.toPx()
+            val yAxisSpace = 30.dp.toPx()
 
             val graphWidth = width - yAxisSpace
             val graphHeight = height - xAxisSpace
@@ -78,8 +81,9 @@ fun <T> LineGraph(
             val minY = yValues.minOrNull() ?: 0f
             val yRange = (maxY - minY).coerceAtLeast(1f)
 
-            val yMinDisplay = minY - (yRange * 0.1f)
-            val yMaxDisplay = maxY + (yRange * 0.1f)
+
+            val yMinDisplay = minY - (yRange * 0.2f)
+            val yMaxDisplay = maxY + (yRange * 0.2f)
             val yRangeDisplay = yMaxDisplay - yMinDisplay
 
             val points = dataPoints.mapIndexed { index, data ->
@@ -90,6 +94,7 @@ fun <T> LineGraph(
                 Offset(x, y)
             }
 
+
             val yGridCount = 5
             for (i in 0..yGridCount) {
                 val progress = i.toFloat() / yGridCount
@@ -97,7 +102,7 @@ fun <T> LineGraph(
                 val value = yMinDisplay + (progress * yRangeDisplay)
 
                 drawLine(
-                    color = axisColor.copy(alpha = 0.5f),
+                    color = axisColor.copy(alpha = 0.3f),
                     start = Offset(yAxisSpace, y),
                     end = Offset(width, y),
                     strokeWidth = 1.dp.toPx(),
@@ -122,6 +127,7 @@ fun <T> LineGraph(
                 )
             }
 
+
             val xLabelSkip = (dataPoints.size / 6).coerceAtLeast(1)
             dataPoints.forEachIndexed { index, data ->
                 if (index % xLabelSkip == 0) {
@@ -139,7 +145,7 @@ fun <T> LineGraph(
 
                     drawText(
                         textLayoutResult = measuredText,
-                        topLeft = Offset(x - measuredText.size.width / 2, graphHeight + 8.dp.toPx())
+                        topLeft = Offset(x - measuredText.size.width / 2, graphHeight + 12.dp.toPx())
                     )
                 }
             }
@@ -182,21 +188,22 @@ fun <T> LineGraph(
                 path = strokePath,
                 color = lineColor,
                 style = Stroke(
-                    width = 3.dp.toPx(),
+                    width = 4.dp.toPx(),
                     cap = StrokeCap.Round,
                     join = StrokeJoin.Round
                 )
             )
 
+
             points.forEach { point ->
                 drawCircle(
-                    color = Color.White,
-                    radius = 4.dp.toPx(),
+                    color = circleColor,
+                    radius = 5.dp.toPx(),
                     center = point,
                 )
                 drawCircle(
                     color = lineColor,
-                    radius = 4.dp.toPx(),
+                    radius = 5.dp.toPx(),
                     center = point,
                     style = Stroke(width = 2.dp.toPx())
                 )
@@ -206,8 +213,8 @@ fun <T> LineGraph(
                 val measuredTitle = textMeasurer.measure(
                     text = it,
                     style = TextStyle(
-                        color = labelColor,
-                        fontSize = labelFontSize * 1.5,
+                        color = titleTextColor,
+                        fontSize = 18.sp,
                         fontWeight = FontWeight.Bold
                     )
                 )
@@ -215,34 +222,10 @@ fun <T> LineGraph(
                     textLayoutResult = measuredTitle,
                     topLeft = Offset(
                         (width - measuredTitle.size.width) / 2,
-                        -20.dp.toPx()
-                    ) // Slightly above
+                        -30.dp.toPx()
+                    )
                 )
             }
         }
-    }
-}
-
-@Preview
-@Composable
-fun LineGraphPreview() {
-    data class DataPoint(val x: String, val y: Float)
-
-    val dataPoints = listOf(
-        DataPoint("Mon", 10f),
-        DataPoint("Tue", 15f),
-        DataPoint("Wed", 12f),
-        DataPoint("Thu", 18f),
-        DataPoint("Fri", 20f),
-        DataPoint("Sat", 22f),
-        DataPoint("Sun", 19f)
-    )
-    MaterialTheme {
-        LineGraph(
-            dataPoints = dataPoints,
-            xValueMapper = { it.x },
-            yValueMapper = { it.y },
-            graphTitle = "Weekly Temperature"
-        )
     }
 }

@@ -14,7 +14,9 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.alexius.weatherio.common.extension.compose.asStringCompose
 import com.alexius.weatherio.common.utils.compose.neumorphicDown
 import com.alexius.weatherio.domain.models.forecast.CurrentWeather
@@ -35,44 +37,45 @@ fun CurrentWeatherItem(
         modifier = modifier
             .fillMaxWidth()
             .padding(16.dp)
-            .padding(24.dp)
+            .padding(12.dp)
             .neumorphicDown(
-                shape = RoundedCornerShape(20.dp),
-                shadowPadding = 4.dp,
+                shape = RoundedCornerShape(32.dp),
+                shadowPadding = 6.dp,
             ),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
+        Spacer(Modifier.height(16.dp))
         Icon(
             painter = painterResource(currentWeather.weatherStatus.icon),
             contentDescription = "Current Weather: ${stringResource(currentWeather.weatherStatus.info)}",
-            modifier = Modifier.size(120.dp),
-            tint = MaterialTheme.colorScheme.onSurfaceVariant,
+            modifier = Modifier.size(140.dp),
+            tint = MaterialTheme.colorScheme.primary
         )
         Spacer(Modifier.height(8.dp))
         Text(
-            text = currentWeather.temperature.toString() + DEGREE_SYMBOL,
-            style = MaterialTheme.typography.displayMedium,
+            text = "${currentWeather.temperature}$DEGREE_SYMBOL",
+            style = MaterialTheme.typography.displayLarge.copy(
+                fontWeight = FontWeight.Bold,
+                fontSize = 80.sp
+            ),
             color = MaterialTheme.colorScheme.onSurface
         )
-        Spacer(Modifier.height(4.dp))
         Text(
-            text = stringResource(
-                Res.string.weather_status,
-                stringResource(currentWeather.weatherStatus.info)
-            ),
-            style = MaterialTheme.typography.bodyLarge,
+            text = stringResource(currentWeather.weatherStatus.info),
+            style = MaterialTheme.typography.headlineSmall,
             color = MaterialTheme.colorScheme.onSurfaceVariant
         )
-        Spacer(Modifier.height(4.dp))
+        Spacer(Modifier.height(8.dp))
         Text(
             text = stringResource(
                 Res.string.wind_speed,
                 currentWeather.windSpeed,
                 currentWeather.windDirection.asStringCompose()
             ),
-            style = MaterialTheme.typography.bodyMedium,
+            style = MaterialTheme.typography.titleMedium,
             color = MaterialTheme.colorScheme.onSurfaceVariant,
         )
+        Spacer(Modifier.height(24.dp))
     }
 }
