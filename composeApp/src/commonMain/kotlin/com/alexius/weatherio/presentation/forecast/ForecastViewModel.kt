@@ -11,6 +11,7 @@ import com.alexius.weatherio.presentation.forecast.models.ForecastState
 import com.alexius.weatherio.repository.ForecastRepository
 import com.alexius.weatherio.repository.GeolocationRepository
 import io.github.aakira.napier.Napier
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
@@ -21,23 +22,28 @@ import kotlinx.datetime.toInstant
 import kotlinx.datetime.toLocalDateTime
 import kotlin.math.abs
 import kotlin.time.Clock
+import kotlin.time.Duration.Companion.minutes
 import kotlin.time.ExperimentalTime
 
 class ForecastViewModel(
     private val forecastRepository: ForecastRepository,
     private val geolocationRepository: GeolocationRepository,
     private val workScheduler: WorkScheduler,
-    private val notificationManager: NotificationManager
 ) : ViewModel() {
 
     private val _forecastState = MutableStateFlow(ForecastState())
     val forecastState = _forecastState.asStateFlow()
 
     init {
-        notificationManager.requestPermission()
         workScheduler.scheduleForecastSync()
         viewModelScope.apply {
             launch { getGeolocation() }
+            launch {
+                while(true) {
+                    delay(30.minutes)
+                    fetchWeatherData(forecastState.value.selectedLocation)
+                }
+            }
         }
     }
 

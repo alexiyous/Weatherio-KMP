@@ -7,6 +7,7 @@ import androidx.work.NetworkType
 import androidx.work.PeriodicWorkRequestBuilder
 import androidx.work.WorkManager
 import com.alexius.weatherio.domain.work.WorkScheduler
+import io.github.aakira.napier.Napier
 import java.util.concurrent.TimeUnit
 
 class AndroidWorkScheduler(
@@ -25,9 +26,10 @@ class AndroidWorkScheduler(
 
         WorkManager.getInstance(context).enqueueUniquePeriodicWork(
             "ForecastSync",
-            ExistingPeriodicWorkPolicy.UPDATE,
+            ExistingPeriodicWorkPolicy.KEEP,
             workRequest
         )
+        Napier.d("Forecast sync scheduled")
     }
 
     override fun cancelForecastSync() {

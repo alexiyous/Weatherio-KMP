@@ -6,13 +6,15 @@ import androidx.work.WorkerParameters
 import com.alexius.weatherio.domain.notification.NotificationManager
 import com.alexius.weatherio.repository.ForecastRepository
 import com.alexius.weatherio.repository.GeolocationRepository
+import io.github.aakira.napier.Napier
 import kotlinx.coroutines.flow.firstOrNull
-import kotlinx.datetime.Clock
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.toLocalDateTime
 import org.jetbrains.compose.resources.getString
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
+import kotlin.time.Clock
+import kotlin.time.ExperimentalTime
 
 class ForecastWorker(
     context: Context,
@@ -23,10 +25,12 @@ class ForecastWorker(
     private val geolocationRepository: GeolocationRepository by inject()
     private val notificationManager: NotificationManager by inject()
 
+    @OptIn(ExperimentalTime::class)
     override suspend fun doWork(): Result {
         return try {
             val geolocation = geolocationRepository.geolocation.firstOrNull() ?: return Result.failure()
 
+            Napier.d("Fetching weather data for ${geolocation.name}")
             val response = forecastRepository.fetchWeatherData(
                 latitude = geolocation.latitude.toFloat(),
                 longitude = geolocation.longitude.toFloat(),

@@ -16,8 +16,7 @@ class AndroidNotificationManager(
 ) : NotificationManager {
 
     override fun requestPermission() {
-        // In Android, permission request should be handled by the Activity / UI layer.
-        // This method is a placeholder or could trigger a prompt if implemented with Activity context.
+        // Permission is now requested via UI (RequestNotificationPermission composable)
     }
 
     override fun showForecastNotification(title: String, message: String) {
