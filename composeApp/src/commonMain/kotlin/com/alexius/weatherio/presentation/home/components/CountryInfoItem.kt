@@ -35,8 +35,6 @@ fun CountryInfoItem(
     onFavouriteClick: (Geolocation) -> Unit
 ) {
     val imageRequest = rememberImageRequest(url = geolocation.flagUrl)
-    val bgColor =
-        if (backgroundColor == Color.Unspecified) MaterialTheme.colorScheme.surface else backgroundColor
     val contentColor =
         if (backgroundColor == Color.Unspecified) MaterialTheme.colorScheme.onSurface else MaterialTheme.colorScheme.onPrimary
 

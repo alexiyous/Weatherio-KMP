@@ -5,6 +5,8 @@ import androidx.lifecycle.viewModelScope
 import com.alexius.weatherio.common.utils.TimeUtils
 import com.alexius.weatherio.common.utils.toAppError
 import com.alexius.weatherio.domain.models.home.Geolocation
+import com.alexius.weatherio.domain.notification.NotificationManager
+import com.alexius.weatherio.domain.work.WorkScheduler
 import com.alexius.weatherio.presentation.forecast.models.ForecastState
 import com.alexius.weatherio.repository.ForecastRepository
 import com.alexius.weatherio.repository.GeolocationRepository
@@ -23,13 +25,17 @@ import kotlin.time.ExperimentalTime
 
 class ForecastViewModel(
     private val forecastRepository: ForecastRepository,
-    private val geolocationRepository: GeolocationRepository
+    private val geolocationRepository: GeolocationRepository,
+    private val workScheduler: WorkScheduler,
+    private val notificationManager: NotificationManager
 ) : ViewModel() {
 
     private val _forecastState = MutableStateFlow(ForecastState())
     val forecastState = _forecastState.asStateFlow()
 
     init {
+        notificationManager.requestPermission()
+        workScheduler.scheduleForecastSync()
         viewModelScope.apply {
             launch { getGeolocation() }
         }

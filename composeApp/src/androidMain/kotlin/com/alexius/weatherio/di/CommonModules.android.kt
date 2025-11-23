@@ -1,6 +1,10 @@
 package com.alexius.weatherio.di
 
 import com.alexius.weatherio.data.datasource.local.DatabaseFactory
+import com.alexius.weatherio.domain.notification.NotificationManager
+import com.alexius.weatherio.domain.work.WorkScheduler
+import com.alexius.weatherio.notification.AndroidNotificationManager
+import com.alexius.weatherio.work.AndroidWorkScheduler
 import io.ktor.client.engine.HttpClientEngine
 import io.ktor.client.engine.okhttp.OkHttp
 import org.koin.android.ext.koin.androidApplication
@@ -11,4 +15,6 @@ actual val platformModule: Module
     get() = module {
         single <HttpClientEngine> { OkHttp.create() }
         single { DatabaseFactory(androidApplication()) }
+        single<WorkScheduler> { AndroidWorkScheduler(androidApplication()) }
+        single<NotificationManager> { AndroidNotificationManager(androidApplication()) }
     }
