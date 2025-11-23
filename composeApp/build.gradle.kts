@@ -66,8 +66,7 @@ kotlin {
             implementation(libs.bundles.ktor)
             implementation(libs.bundles.coil)
             implementation(libs.material.icons.extended)
-
-            implementation("org.jetbrains.compose.material3:material3:1.9.0-alpha04")
+            implementation(libs.napier)
         }
         commonTest.dependencies {
             implementation(libs.kotlin.test)

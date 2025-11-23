@@ -7,8 +7,10 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Arrangement.Absolute.spacedBy
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -93,11 +95,12 @@ fun ForecastScreen(
                                         state.dailyWeatherInfo?.let { dailyWeatherInfo ->
                                             Row(
                                                 modifier = Modifier
-                                                    .fillMaxWidth(),
-                                                horizontalArrangement = Arrangement.SpaceBetween,
+                                                    .fillMaxWidth()
+                                                    .height(IntrinsicSize.Min),
+                                                horizontalArrangement = Arrangement.Center,
                                             ) {
-                                                SunsetWeatherItem(weatherInfo = dailyWeatherInfo)
-                                                UvIndexWeatherItem(weatherInfo = dailyWeatherInfo)
+                                                SunsetWeatherItem(weatherInfo = dailyWeatherInfo, modifier = Modifier.fillMaxHeight())
+                                                UvIndexWeatherItem(weatherInfo = dailyWeatherInfo, modifier = Modifier.fillMaxHeight())
                                             }
                                         }
 

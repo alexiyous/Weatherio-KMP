@@ -44,9 +44,9 @@
     <string name="location_longitude">Lon %1$s</string>
 
     <string name="weather_status">Status Cuaca: %1$s</string>
-    <string name="wind_speed">Kecepatan Angin: %1$f Km/jam %2$s</string>
+    <string name="wind_speed">Kecepatan Angin: %1$d Km/jam %2$s</string>
 
-    <string name="uv_index">INDEKS UV</string>
+    <string name="uv_index">Indeks UV</string>
 
     <string name="sunrise">Matahari Terbit</string>
     <string name="sunset">Matahari Terbenam %1$s</string>

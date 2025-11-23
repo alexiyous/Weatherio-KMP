@@ -57,7 +57,7 @@ fun <T> LineGraph(
         val height = size.height
 
         val xAxisSpace = 30.dp.toPx()
-        val yAxisSpace = 40.dp.toPx()
+        val yAxisSpace = 20.dp.toPx()
         
         val graphWidth = width - yAxisSpace
         val graphHeight = height - xAxisSpace

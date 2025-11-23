@@ -44,9 +44,9 @@
     <string name="location_longitude">Lon %1$s</string>
 
     <string name="weather_status">Weather Status: %1$s</string>
-    <string name="wind_speed">Wind Speed: %1$f Km/h %2$s</string>
+    <string name="wind_speed">Wind Speed: %1$d Km/h %2$s</string>
 
-    <string name="uv_index">UV INDEX</string>
+    <string name="uv_index">UV Index</string>
 
     <string name="sunrise">Sunrise</string>
     <string name="sunset">Sunset %1$s</string>

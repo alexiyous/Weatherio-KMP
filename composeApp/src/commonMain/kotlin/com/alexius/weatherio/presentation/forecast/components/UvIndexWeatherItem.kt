@@ -40,7 +40,7 @@ fun UvIndexWeatherItem(
             )
             Text(
                 text = stringResource(weatherInfo.weatherStatus.info),
-                style = MaterialTheme.typography.headlineSmall,
+                style = MaterialTheme.typography.bodyMedium,
                 modifier = Modifier.basicMarquee()
             )
         }
