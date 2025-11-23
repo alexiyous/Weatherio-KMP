@@ -1,6 +1,5 @@
 package com.alexius.weatherio.presentation.forecast.components
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -14,14 +13,8 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.dropShadow
-import androidx.compose.ui.graphics.BlendMode
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.shadow.Shadow
-import androidx.compose.ui.unit.DpOffset
 import androidx.compose.ui.unit.dp
 import com.alexius.weatherio.common.utils.TimeUtils
-import com.alexius.weatherio.common.utils.compose.neumorphicDown
 import com.alexius.weatherio.common.utils.compose.neumorphicUp
 import com.alexius.weatherio.domain.models.forecast.Hourly
 import org.jetbrains.compose.resources.stringResource
@@ -56,7 +49,9 @@ fun HourlyWeatherItem(
                 color = MaterialTheme.colorScheme.onSurface
             )
             Text(
-                text = TimeUtils.formatUnixToCustom(Clock.System.now().toEpochMilliseconds() / 1000),
+                text = TimeUtils.formatUnixToCustom(
+                    Clock.System.now().toEpochMilliseconds() / 1000
+                ),
                 style = MaterialTheme.typography.bodyMedium,
                 color = MaterialTheme.colorScheme.onSurfaceVariant
             )

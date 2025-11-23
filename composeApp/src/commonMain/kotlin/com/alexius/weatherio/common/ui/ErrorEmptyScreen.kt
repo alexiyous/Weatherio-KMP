@@ -9,9 +9,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import com.alexius.weatherio.common.extension.compose.asStringCompose
-import com.alexius.weatherio.presentation.utils.NavigationType
 import com.alexius.weatherio.common.utils.AppError
 import com.alexius.weatherio.common.utils.TextResource
+import com.alexius.weatherio.presentation.utils.NavigationType
 import weatherio.composeapp.generated.resources.Res
 import weatherio.composeapp.generated.resources.error_critical_message
 import weatherio.composeapp.generated.resources.error_critical_title
@@ -48,17 +48,20 @@ fun AppError.toErrorEmptyState(
     customTitle: TextResource? = null,
     customMessage: TextResource? = null,
     customNetworkErrorIcon: ImageVector? = null,
-) : ErrorEmptyState {
-    return when(this) {
+): ErrorEmptyState {
+    return when (this) {
         is AppError.NetworkError -> ErrorEmptyState(
             icon = Icons.Default.MobiledataOff,
-            title = customTitle ?: TextResource.SingleStringResource(Res.string.error_network_title),
-            message = customMessage ?: TextResource.SingleStringResource(Res.string.error_network_message),
+            title = customTitle
+                ?: TextResource.SingleStringResource(Res.string.error_network_title),
+            message = customMessage
+                ?: TextResource.SingleStringResource(Res.string.error_network_message),
             buttonText = TextResource.SingleStringResource(Res.string.retry)
         )
+
         is AppError.ServerError -> ErrorEmptyState(
             icon = if (this.httpCode == 500) Icons.Default.ErrorOutline
-             else customNetworkErrorIcon ?: Icons.Default.NetworkLocked,
+            else customNetworkErrorIcon ?: Icons.Default.NetworkLocked,
             title = TextResource.PlainText("${this.httpCode}"),
             message = TextResource.PlainText(this.message),
             buttonText = if (this.httpCode == 500) {
@@ -67,6 +70,7 @@ fun AppError.toErrorEmptyState(
                 null
             }
         )
+
         is AppError.UnexpectedError -> ErrorEmptyState(
             icon = Icons.Default.MinorCrash,
             title = TextResource.SingleStringResource(Res.string.error_critical_title),

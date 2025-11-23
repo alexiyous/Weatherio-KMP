@@ -3,11 +3,10 @@ package com.alexius.weatherio.presentation.home.components
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
-import androidx.compose.material.icons.filled.MoreVert
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
@@ -23,16 +22,11 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.dropShadow
-import androidx.compose.ui.graphics.BlendMode
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.shadow.Shadow
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
-import androidx.compose.ui.unit.DpOffset
 import androidx.compose.ui.unit.dp
 import com.alexius.weatherio.common.utils.compose.neumorphicDown
-import com.alexius.weatherio.common.utils.compose.neumorphicUp
 import org.jetbrains.compose.resources.stringResource
 import weatherio.composeapp.generated.resources.Res
 import weatherio.composeapp.generated.resources.country_search_input_field_text
@@ -52,11 +46,10 @@ fun HomeSearchBar(
     val keyboardController = LocalSoftwareKeyboardController.current
 
     SearchBar(
-        modifier = modifier
-            .fillMaxWidth(),
+        modifier = modifier.fillMaxWidth(),
         inputField = {
             Row(
-                modifier = Modifier .neumorphicDown(
+                modifier = Modifier.padding(horizontal = 16.dp).neumorphicDown(
                     shape = RoundedCornerShape(20.dp),
                     shadowPadding = 4.dp,
                 ),
@@ -66,8 +59,7 @@ fun HomeSearchBar(
                 IconButton(onClick = {
                     onNavigateBack()
                     expanded = false
-                }
-                ) {
+                }) {
                     Icon(
                         imageVector = Icons.AutoMirrored.Filled.ArrowBack,
                         contentDescription = "Back",
@@ -87,7 +79,11 @@ fun HomeSearchBar(
                     expanded = expanded,
                     onExpandedChange = { expanded = it },
                     placeholder = { Text(text = stringResource(Res.string.country_search_input_field_text)) },
-                    leadingIcon = { Icon(Icons.Default.Search, contentDescription = "Search Icon") },
+                    leadingIcon = {
+                        Icon(
+                            Icons.Default.Search, contentDescription = "Search Icon"
+                        )
+                    },
                     colors = SearchBarDefaults.inputFieldColors(
                         focusedTextColor = MaterialTheme.colorScheme.onSurface,
                         unfocusedTextColor = MaterialTheme.colorScheme.onSurface,
@@ -110,7 +106,7 @@ fun HomeSearchBar(
             dividerColor = MaterialTheme.colorScheme.primary
         ),
         windowInsets = SearchBarDefaults.windowInsets
-    ){
+    ) {
         content()
     }
 }

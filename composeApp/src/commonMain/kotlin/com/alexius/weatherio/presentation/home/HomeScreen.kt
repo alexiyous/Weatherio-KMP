@@ -6,20 +6,15 @@ import androidx.compose.animation.fadeOut
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.LocationSearching
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.alexius.weatherio.common.ui.EmptyContent
 import com.alexius.weatherio.presentation.forecast.ForecastScreen
@@ -47,8 +42,7 @@ fun HomeScreen(
         enter =
             fadeIn(
                 initialAlpha = 0.3f
-            )
-        ,
+            ),
         exit = fadeOut(
             targetAlpha = 0.3f
         )
@@ -60,7 +54,7 @@ fun HomeScreen(
         )
         {
             SearchLocationContent(
-                modifier = modifier.padding(horizontal = 16.dp),
+                modifier = modifier,
                 navigationType = navigationType,
                 state = state,
                 search = search,

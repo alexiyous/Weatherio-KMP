@@ -19,10 +19,10 @@ import com.alexius.weatherio.common.ui.ErrorEmptyScreen
 import com.alexius.weatherio.common.ui.Loader
 import com.alexius.weatherio.common.ui.theme.WeatherIoTheme
 import com.alexius.weatherio.common.ui.toErrorEmptyState
+import com.alexius.weatherio.common.utils.AppError
 import com.alexius.weatherio.domain.models.home.Geolocation
 import com.alexius.weatherio.presentation.home.models.HomeState
 import com.alexius.weatherio.presentation.utils.NavigationType
-import com.alexius.weatherio.common.utils.AppError
 import org.jetbrains.compose.ui.tooling.preview.Preview
 
 @OptIn(ExperimentalMaterial3Api::class)

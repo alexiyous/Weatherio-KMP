@@ -1,7 +1,6 @@
 package com.alexius.weatherio.presentation.forecast.components
 
 import androidx.compose.foundation.Canvas
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -11,9 +10,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.dropShadow
 import androidx.compose.ui.geometry.Offset
-import androidx.compose.ui.graphics.BlendMode
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Path
@@ -21,17 +18,14 @@ import androidx.compose.ui.graphics.PathEffect
 import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.graphics.StrokeJoin
 import androidx.compose.ui.graphics.drawscope.Stroke
-import androidx.compose.ui.graphics.shadow.Shadow
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.drawText
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.rememberTextMeasurer
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.unit.DpOffset
 import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.alexius.weatherio.common.utils.compose.neumorphicDown
 import com.alexius.weatherio.common.utils.compose.neumorphicUp
 import org.jetbrains.compose.ui.tooling.preview.Preview
 import kotlin.math.roundToInt
@@ -75,7 +69,7 @@ fun <T> LineGraph(
 
             val xAxisSpace = 30.dp.toPx()
             val yAxisSpace = 20.dp.toPx()
-            
+
             val graphWidth = width - yAxisSpace
             val graphHeight = height - xAxisSpace
 
@@ -89,8 +83,10 @@ fun <T> LineGraph(
             val yRangeDisplay = yMaxDisplay - yMinDisplay
 
             val points = dataPoints.mapIndexed { index, data ->
-                val x = yAxisSpace + (index.toFloat() / (dataPoints.size - 1).coerceAtLeast(1)) * graphWidth
-                val y = graphHeight - ((yValueMapper(data) - yMinDisplay) / yRangeDisplay) * graphHeight
+                val x =
+                    yAxisSpace + (index.toFloat() / (dataPoints.size - 1).coerceAtLeast(1)) * graphWidth
+                val y =
+                    graphHeight - ((yValueMapper(data) - yMinDisplay) / yRangeDisplay) * graphHeight
                 Offset(x, y)
             }
 
@@ -116,10 +112,13 @@ fun <T> LineGraph(
                         textAlign = TextAlign.End
                     )
                 )
-                
+
                 drawText(
                     textLayoutResult = measuredText,
-                    topLeft = Offset(yAxisSpace - measuredText.size.width - 8.dp.toPx(), y - measuredText.size.height / 2)
+                    topLeft = Offset(
+                        yAxisSpace - measuredText.size.width - 8.dp.toPx(),
+                        y - measuredText.size.height / 2
+                    )
                 )
             }
 
@@ -128,7 +127,7 @@ fun <T> LineGraph(
                 if (index % xLabelSkip == 0) {
                     val x = points[index].x
                     val label = xValueMapper(data)
-                    
+
                     val measuredText = textMeasurer.measure(
                         text = label,
                         style = TextStyle(
@@ -137,7 +136,7 @@ fun <T> LineGraph(
                             textAlign = TextAlign.Center
                         )
                     )
-                    
+
                     drawText(
                         textLayoutResult = measuredText,
                         topLeft = Offset(x - measuredText.size.width / 2, graphHeight + 8.dp.toPx())
@@ -148,11 +147,11 @@ fun <T> LineGraph(
             val strokePath = Path().apply {
                 if (points.isNotEmpty()) {
                     moveTo(points.first().x, points.first().y)
-                    
+
                     for (i in 0 until points.size - 1) {
                         val p0 = points[i]
                         val p1 = points[i + 1]
-                        
+
                         val controlX = (p0.x + p1.x) / 2f
                         cubicTo(
                             x1 = controlX, y1 = p0.y,
@@ -169,7 +168,7 @@ fun <T> LineGraph(
                 lineTo(points.first().x, graphHeight)
                 close()
             }
-            
+
             drawPath(
                 path = fillPath,
                 brush = Brush.verticalGradient(
@@ -214,7 +213,10 @@ fun <T> LineGraph(
                 )
                 drawText(
                     textLayoutResult = measuredTitle,
-                    topLeft = Offset((width - measuredTitle.size.width) / 2, -20.dp.toPx()) // Slightly above
+                    topLeft = Offset(
+                        (width - measuredTitle.size.width) / 2,
+                        -20.dp.toPx()
+                    ) // Slightly above
                 )
             }
         }
@@ -237,9 +239,9 @@ fun LineGraphPreview() {
     )
     MaterialTheme {
         LineGraph(
-            dataPoints = dataPoints, 
-            xValueMapper = { it.x }, 
-            yValueMapper = { it.y }, 
+            dataPoints = dataPoints,
+            xValueMapper = { it.x },
+            yValueMapper = { it.y },
             graphTitle = "Weekly Temperature"
         )
     }

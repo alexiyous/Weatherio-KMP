@@ -32,7 +32,7 @@ fun HourlyWeatherInfoItem(
             ),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center,
-    ){
+    ) {
         Text(
             text = "${infoItem.temperature} $DEGREE_SYMBOL",
             style = MaterialTheme.typography.bodySmall,
@@ -41,7 +41,7 @@ fun HourlyWeatherInfoItem(
         Spacer(modifier = Modifier.height(8.dp))
         Icon(
             painter = painterResource(infoItem.weatherStatus.icon),
-            contentDescription = "Hourly Weather: ${stringResource( infoItem.weatherStatus.info)}",
+            contentDescription = "Hourly Weather: ${stringResource(infoItem.weatherStatus.info)}",
             tint = MaterialTheme.colorScheme.onSurfaceVariant
         )
         Spacer(modifier = Modifier.height(8.dp))

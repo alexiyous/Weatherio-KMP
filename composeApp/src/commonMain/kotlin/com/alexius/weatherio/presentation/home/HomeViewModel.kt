@@ -2,10 +2,10 @@ package com.alexius.weatherio.presentation.home
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.alexius.weatherio.common.utils.toAppError
 import com.alexius.weatherio.domain.models.home.Geolocation
 import com.alexius.weatherio.presentation.home.models.HomeState
 import com.alexius.weatherio.repository.GeolocationRepository
-import com.alexius.weatherio.common.utils.toAppError
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
@@ -28,7 +28,7 @@ class HomeViewModel(
                     _homesState.update { state ->
                         state.copy(selectedLocation = it)
                     }
-            }
+                }
         }
     }
 

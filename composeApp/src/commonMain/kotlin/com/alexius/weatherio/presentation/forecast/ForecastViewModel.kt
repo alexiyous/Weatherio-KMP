@@ -24,7 +24,7 @@ import kotlin.time.ExperimentalTime
 class ForecastViewModel(
     private val forecastRepository: ForecastRepository,
     private val geolocationRepository: GeolocationRepository
-): ViewModel() {
+) : ViewModel() {
 
     private val _forecastState = MutableStateFlow(ForecastState())
     val forecastState = _forecastState.asStateFlow()
@@ -67,7 +67,7 @@ class ForecastViewModel(
                 timeZone = TimeZone.currentSystemDefault().id
             ).fold(
                 onSuccess = { weather ->
-                    
+
                     val todayWeatherInfo = weather.daily.dailyWeatherInfo.find { daily ->
                         TimeUtils.isTodayDate(daily.time)
                     }

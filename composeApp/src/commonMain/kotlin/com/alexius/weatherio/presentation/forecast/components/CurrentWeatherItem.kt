@@ -1,6 +1,5 @@
 package com.alexius.weatherio.presentation.forecast.components
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -15,11 +14,6 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.dropShadow
-import androidx.compose.ui.graphics.BlendMode
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.shadow.Shadow
-import androidx.compose.ui.unit.DpOffset
 import androidx.compose.ui.unit.dp
 import com.alexius.weatherio.common.extension.compose.asStringCompose
 import com.alexius.weatherio.common.utils.compose.neumorphicDown
@@ -51,7 +45,7 @@ fun CurrentWeatherItem(
     ) {
         Icon(
             painter = painterResource(currentWeather.weatherStatus.icon),
-            contentDescription = "Current Weather: ${stringResource( currentWeather.weatherStatus.info)}",
+            contentDescription = "Current Weather: ${stringResource(currentWeather.weatherStatus.info)}",
             modifier = Modifier.size(120.dp),
             tint = MaterialTheme.colorScheme.onSurfaceVariant,
         )
@@ -63,13 +57,20 @@ fun CurrentWeatherItem(
         )
         Spacer(Modifier.height(4.dp))
         Text(
-            text = stringResource(Res.string.weather_status, stringResource(currentWeather.weatherStatus.info)),
+            text = stringResource(
+                Res.string.weather_status,
+                stringResource(currentWeather.weatherStatus.info)
+            ),
             style = MaterialTheme.typography.bodyLarge,
             color = MaterialTheme.colorScheme.onSurfaceVariant
         )
         Spacer(Modifier.height(4.dp))
         Text(
-            text = stringResource(Res.string.wind_speed, currentWeather.windSpeed, currentWeather.windDirection.asStringCompose()),
+            text = stringResource(
+                Res.string.wind_speed,
+                currentWeather.windSpeed,
+                currentWeather.windDirection.asStringCompose()
+            ),
             style = MaterialTheme.typography.bodyMedium,
             color = MaterialTheme.colorScheme.onSurfaceVariant,
         )

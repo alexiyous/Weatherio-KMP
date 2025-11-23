@@ -79,6 +79,7 @@ fun ForecastScreen(
                     "LOADING" -> {
                         Loader(modifier = Modifier.fillMaxSize())
                     }
+
                     "ERROR" -> {
                         ErrorEmptyScreen(
                             modifier = Modifier.fillMaxSize().navigationBarsPadding(),
@@ -87,6 +88,7 @@ fun ForecastScreen(
                             buttonAction = { onSearchClick() }
                         )
                     }
+
                     "DATA" -> {
                         LazyColumn(
                             horizontalAlignment = Alignment.CenterHorizontally,
@@ -109,8 +111,14 @@ fun ForecastScreen(
                                                     .height(IntrinsicSize.Min),
                                                 horizontalArrangement = Arrangement.spacedBy(16.dp),
                                             ) {
-                                                SunsetWeatherItem(weatherInfo = dailyWeatherInfo, modifier = Modifier.fillMaxHeight().weight(1f))
-                                                UvIndexWeatherItem(weatherInfo = dailyWeatherInfo, modifier = Modifier.fillMaxHeight().weight(1f))
+                                                SunsetWeatherItem(
+                                                    weatherInfo = dailyWeatherInfo,
+                                                    modifier = Modifier.fillMaxHeight().weight(1f)
+                                                )
+                                                UvIndexWeatherItem(
+                                                    weatherInfo = dailyWeatherInfo,
+                                                    modifier = Modifier.fillMaxHeight().weight(1f)
+                                                )
                                             }
                                         }
 
@@ -137,7 +145,7 @@ fun ForecastScreen(
                 }
             }
         }
-        
+
         // Location Selector Button
         state.selectedLocation?.let { location ->
             Row(
