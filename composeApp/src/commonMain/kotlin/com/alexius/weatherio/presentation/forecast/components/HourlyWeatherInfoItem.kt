@@ -28,17 +28,20 @@ fun HourlyWeatherInfoItem(
     ){
         Text(
             text = "${infoItem.temperature} $DEGREE_SYMBOL",
-            style = MaterialTheme.typography.bodySmall
+            style = MaterialTheme.typography.bodySmall,
+            color = MaterialTheme.colorScheme.onSurface
         )
         Spacer(modifier = Modifier.height(8.dp))
         Icon(
             painter = painterResource(infoItem.weatherStatus.icon),
             contentDescription = "Hourly Weather: ${stringResource( infoItem.weatherStatus.info)}",
+            tint = MaterialTheme.colorScheme.onSurfaceVariant
         )
         Spacer(modifier = Modifier.height(8.dp))
         Text(
             text = infoItem.time,
-            style = MaterialTheme.typography.bodySmall
+            style = MaterialTheme.typography.bodySmall,
+            color = MaterialTheme.colorScheme.onSurfaceVariant
         )
     }
 }

@@ -1,11 +1,13 @@
 package com.alexius.weatherio.presentation.home
 
 import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.LocationSearching
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -35,8 +37,16 @@ fun HomeScreen(
     var search by rememberSaveable { mutableStateOf("") }
     var showSearchLocation by rememberSaveable(state.selectedLocation) { mutableStateOf(state.selectedLocation == null) }
 
-    AnimatedVisibility(showSearchLocation,modifier = modifier) {
-        Column {
+    AnimatedVisibility(
+        showSearchLocation,
+        modifier = modifier,
+    ) {
+        Column(
+            modifier.background(
+                MaterialTheme.colorScheme.background
+            )
+        )
+        {
             SearchLocationContent(
                 modifier = modifier,
                 navigationType = navigationType,
@@ -69,7 +79,9 @@ fun HomeScreen(
     AnimatedVisibility(!showSearchLocation, modifier = modifier.fillMaxSize()) {
         state.selectedLocation?.let {
             ForecastScreen(
-                modifier = modifier.statusBarsPadding(),
+                modifier = modifier.background(
+                    MaterialTheme.colorScheme.background
+                ),
                 onSearchClick = {
                     showSearchLocation = !showSearchLocation
                 },

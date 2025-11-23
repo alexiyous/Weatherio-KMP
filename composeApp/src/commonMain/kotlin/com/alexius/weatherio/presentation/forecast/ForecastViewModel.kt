@@ -8,11 +8,15 @@ import com.alexius.weatherio.domain.models.home.Geolocation
 import com.alexius.weatherio.presentation.forecast.models.ForecastState
 import com.alexius.weatherio.repository.ForecastRepository
 import com.alexius.weatherio.repository.GeolocationRepository
+import io.github.aakira.napier.Napier
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import kotlinx.datetime.LocalDateTime
 import kotlinx.datetime.TimeZone
+import kotlinx.datetime.toInstant
+import kotlinx.datetime.toLocalDateTime
 import kotlin.math.abs
 import kotlin.time.Clock
 import kotlin.time.ExperimentalTime
@@ -31,6 +35,7 @@ class ForecastViewModel(
         }
     }
 
+    @OptIn(ExperimentalTime::class)
     private suspend fun fetchWeatherData(geolocation: Geolocation?) {
         _forecastState.update { it.copy(isLoading = true) }
         geolocation?.let {
@@ -66,6 +71,32 @@ class ForecastViewModel(
                     val todayWeatherInfo = weather.daily.dailyWeatherInfo.find { daily ->
                         TimeUtils.isTodayDate(daily.time)
                     }
+
+                    Napier.d("Today Weather Info: ${todayWeatherInfo}")
+
+                    val now = Clock.System.now()
+                    val timeZone = TimeZone.currentSystemDefault()
+                    val nowDateTime = now.toLocalDateTime(timeZone)
+
+                    val nearestHourlyInfo = weather.hourly.hourlyInfoItem.minByOrNull { hourly ->
+                        val timeParts = hourly.time.split(':')
+                        val hour = timeParts[0].toInt()
+                        val minute = timeParts[1].toInt()
+
+                        val hourlyDateTime = LocalDateTime(
+                            nowDateTime.year,
+                            nowDateTime.month,
+                            nowDateTime.dayOfMonth,
+                            hour,
+                            minute
+                        )
+                        val hourlyInstant = hourlyDateTime.toInstant(timeZone)
+
+                        abs(now.epochSeconds - hourlyInstant.epochSeconds)
+                    }
+
+                    Napier.d("Nearest temperature on current time from hourly: $nearestHourlyInfo")
+
 
                     _forecastState.update { state ->
                         state.copy(

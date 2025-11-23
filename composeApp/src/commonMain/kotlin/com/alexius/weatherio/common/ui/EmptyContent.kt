@@ -12,14 +12,21 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Info
 import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.dropShadow
+import androidx.compose.ui.graphics.BlendMode
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.shadow.Shadow
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.unit.DpOffset
 import androidx.compose.ui.unit.dp
+import com.alexius.weatherio.common.ui.theme.WeatherIoTheme
 import com.alexius.weatherio.presentation.utils.NavigationType
 import org.jetbrains.compose.ui.tooling.preview.Preview
 
@@ -53,7 +60,7 @@ fun EmptyContent(
             text = title,
             textAlign = TextAlign.Center,
             style = MaterialTheme.typography.headlineMedium,
-            color = MaterialTheme.colorScheme.onBackground
+            color = MaterialTheme.colorScheme.onSurface
         )
         Text(
             modifier = Modifier
@@ -62,7 +69,7 @@ fun EmptyContent(
             text = subtitle,
             textAlign = TextAlign.Center,
             style = MaterialTheme.typography.bodyMedium,
-            color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.7f)
+            color = MaterialTheme.colorScheme.onSurface
         )
         Spacer(Modifier.weight(1f))
         buttonText?.let {
@@ -77,11 +84,29 @@ fun EmptyContent(
                     .fillMaxWidth()
                     .height(52.dp)
                     .padding(bottom = 8.dp)
-                    .padding(horizontal = buttonPaddingHorizontal),
+                    .padding(horizontal = buttonPaddingHorizontal)
+                    .dropShadow(
+                        shape = RoundedCornerShape(20.dp),
+                        shadow = Shadow(
+                            color = Color.Black.copy(0.25f),
+                            offset = DpOffset(4.dp, 4.dp),
+                            radius = 10.dp,
+                            spread = 0.dp,
+                            blendMode = BlendMode.SrcOver
+                        )
+                    ),
                 onClick = { buttonAction?.invoke() },
-                shape = RoundedCornerShape(20.dp)
+                shape = RoundedCornerShape(20.dp),
+                colors = ButtonDefaults.buttonColors(
+                    containerColor = MaterialTheme.colorScheme.surface,
+                    contentColor = MaterialTheme.colorScheme.onSurface
+                )
             ) {
-                Text(text = it)
+                Text(
+                    text = it,
+                    style = MaterialTheme.typography.titleMedium,
+                    color = MaterialTheme.colorScheme.onSurface
+                )
             }
         }
     }
@@ -90,13 +115,15 @@ fun EmptyContent(
 @Preview(showBackground = true)
 @Composable
 fun EmptyContentPreview() {
-    EmptyContent(
-        title = "No data",
-        subtitle = "There is no data to show you right now.",
-        image = Icons.Default.Info,
-        buttonText = "Retry",
-        isFullscreen = true,
-        buttonAction = {},
-        navigationType = NavigationType.BOTTOM_NAVIGATION
-    )
+    WeatherIoTheme {
+        EmptyContent(
+            title = "No data",
+            subtitle = "There is no data to show you right now.",
+            image = Icons.Default.Info,
+            buttonText = "Retry",
+            isFullscreen = true,
+            buttonAction = {},
+            navigationType = NavigationType.BOTTOM_NAVIGATION
+        )
+    }
 }
