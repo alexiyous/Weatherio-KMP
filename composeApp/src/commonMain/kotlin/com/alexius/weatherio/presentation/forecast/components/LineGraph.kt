@@ -194,21 +194,6 @@ fun <T> LineGraph(
                 )
             )
 
-
-            points.forEach { point ->
-                drawCircle(
-                    color = circleColor,
-                    radius = 5.dp.toPx(),
-                    center = point,
-                )
-                drawCircle(
-                    color = lineColor,
-                    radius = 5.dp.toPx(),
-                    center = point,
-                    style = Stroke(width = 2.dp.toPx())
-                )
-            }
-
             graphTitle?.let {
                 val measuredTitle = textMeasurer.measure(
                     text = it,
