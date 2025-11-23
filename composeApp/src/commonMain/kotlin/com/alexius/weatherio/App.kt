@@ -14,6 +14,7 @@ import androidx.compose.material3.windowsizeclass.WindowWidthSizeClass
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import com.alexius.weatherio.common.ui.theme.WeatherIoTheme
 import com.alexius.weatherio.presentation.home.HomeScreen
 import com.alexius.weatherio.presentation.utils.getNavigationType
 import org.jetbrains.compose.resources.painterResource
@@ -25,8 +26,7 @@ import weatherio.composeapp.generated.resources.compose_multiplatform
 @Composable
 @Preview
 fun App(windowWidthSizeClass: WindowWidthSizeClass) {
-    MaterialTheme {
-
+    WeatherIoTheme {
         HomeScreen(
             navigationType = getNavigationType(windowWidthSizeClass)
         )

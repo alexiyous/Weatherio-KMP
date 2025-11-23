@@ -1,6 +1,8 @@
 package com.alexius.weatherio.presentation.home
 
 import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -40,6 +42,14 @@ fun HomeScreen(
     AnimatedVisibility(
         showSearchLocation,
         modifier = modifier,
+        enter =
+            fadeIn(
+                initialAlpha = 0.3f
+            )
+        ,
+        exit = fadeOut(
+            targetAlpha = 0.3f
+        )
     ) {
         Column(
             modifier.background(

@@ -26,6 +26,8 @@ import androidx.compose.ui.draw.dropShadow
 import androidx.compose.ui.graphics.BlendMode
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.shadow.Shadow
+import androidx.compose.ui.platform.LocalFocusManager
+import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.unit.DpOffset
 import androidx.compose.ui.unit.dp
 import org.jetbrains.compose.resources.stringResource
@@ -43,20 +45,12 @@ fun HomeSearchBar(
     content: @Composable () -> Unit
 ) {
     var expanded by rememberSaveable { mutableStateOf(false) }
+    val focusManager = LocalFocusManager.current
+    val keyboardController = LocalSoftwareKeyboardController.current
 
     SearchBar(
         modifier = modifier
-            .fillMaxWidth()
-            .dropShadow(
-                shape = RoundedCornerShape(24.dp),
-                shadow = Shadow(
-                    color = Color.Black.copy(0.25f),
-                    offset = DpOffset(4.dp, 4.dp),
-                    radius = 10.dp,
-                    spread = 0.dp,
-                    blendMode = BlendMode.SrcOver
-                )
-            ),
+            .fillMaxWidth(),
         inputField = {
             Row(
                 verticalAlignment = Alignment.CenterVertically,
@@ -80,19 +74,37 @@ fun HomeSearchBar(
                     onQueryChange = onSearchChange,
                     onSearch = {
                         onSubmit()
+                        keyboardController?.hide()
+                        focusManager.clearFocus()
                     },
                     expanded = expanded,
                     onExpandedChange = { expanded = it },
                     placeholder = { Text(text = stringResource(Res.string.country_search_input_field_text)) },
                     leadingIcon = { Icon(Icons.Default.Search, contentDescription = "Search Icon") },
+                    colors = SearchBarDefaults.inputFieldColors(
+                        focusedTextColor = MaterialTheme.colorScheme.onSurface,
+                        unfocusedTextColor = MaterialTheme.colorScheme.onSurface,
+                        cursorColor = MaterialTheme.colorScheme.primary,
+                        focusedLeadingIconColor = MaterialTheme.colorScheme.onSurface,
+                        unfocusedLeadingIconColor = MaterialTheme.colorScheme.onSurfaceVariant,
+                        focusedPlaceholderColor = MaterialTheme.colorScheme.onSurfaceVariant,
+                        unfocusedPlaceholderColor = MaterialTheme.colorScheme.onSurfaceVariant,
+                        focusedContainerColor = Color.Transparent,
+                        unfocusedContainerColor = Color.Transparent,
+                        disabledContainerColor = Color.Transparent,
+                    )
                 )
             }
         },
         expanded = expanded,
         onExpandedChange = { expanded = it },
         colors = SearchBarDefaults.colors(
+            containerColor = MaterialTheme.colorScheme.surface,
             dividerColor = MaterialTheme.colorScheme.outlineVariant
-        )
+        ),
+        tonalElevation = 0.dp,
+        shadowElevation = 8.dp,
+        windowInsets = SearchBarDefaults.windowInsets
     ){
         content()
     }
