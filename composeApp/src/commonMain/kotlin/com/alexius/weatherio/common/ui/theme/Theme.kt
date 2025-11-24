@@ -16,7 +16,8 @@ private val LightColorScheme = lightColorScheme(
     surfaceVariant = NeuLightSurface,
     onSurfaceVariant = NeuLightOnSurfaceVariant,
     surfaceBright = NeuLightSurfaceBright,
-    surfaceDim = NeuLightSurfaceDim
+    surfaceDim = NeuLightSurfaceDim,
+    secondary = NeuLightSecondary
 )
 
 private val DarkColorScheme = darkColorScheme(

@@ -10,6 +10,9 @@ val NeuLightOnSurface = Color(0xFF4A5568)
 val NeuLightOnSurfaceVariant = Color(0xFF718096)
 val NeuLightSurfaceBright = Color(0xFFF4F7FA)
 val NeuLightSurfaceDim = Color(0xFF2D3238)
+val NeuLightSecondary = Color(0xFF6C7A89)
+val NeuLightOnSecondary = Color(0xFFFFFFFF)
+
 
 val NeuDarkBackground = Color(0xFF2D3238)
 val NeuDarkPrimary = Color(0xFF9EA7B0)
