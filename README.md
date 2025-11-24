@@ -11,6 +11,7 @@ This project demonstrates the power of sharing logic and UI code between platfor
 *   **Cross-Platform Support**: Single codebase running seamlessly on Android, iOS, and Desktop (JVM).
 *   **Neumorphism Design**: A customized, modern UI aesthetic featuring soft shadows and depth effects for a unique visual experience.
 *   **Real-Time Weather**: Accurate current weather conditions including temperature, wind, UV index, and sunset times.
+*   **Android Home Screen Widget**: Get a glance at the current weather directly from your home screen with a beautiful, responsive widget.
 *   **Detailed Forecasts**:
     *   Hourly temperature trends visualized with custom line graphs.
     *   Daily weather summaries.
@@ -36,6 +37,7 @@ This project demonstrates the power of sharing logic and UI code between platfor
 *   **Dependency Injection**: [Koin](https://insert-koin.io/)
 *   **Networking**: [Ktor](https://ktor.io/) (with Custom Error Handling)
 *   **Image Loading**: [Coil 3](https://coil-kt.github.io/coil/)
+*   **App Widgets**: [Glance](https://developer.android.com/jetpack/compose/glance)
 *   **Local Storage**: [Room](https://developer.android.com/kotlin/multiplatform/room) (SQLite)
 *   **Logging**: [Napier](https://github.com/AAkira/Napier)
 *   **Background Work**:
