@@ -1,3 +1,4 @@
+
 # Weatherio 🌦️
 
 **Weatherio** is a modern, cross-platform weather application built with **Kotlin Multiplatform (KMP)** and **Compose Multiplatform**. It provides real-time weather updates, forecasts, and background notifications across Android, iOS, and Desktop.
@@ -47,12 +48,16 @@ This project demonstrates the power of sharing logic and UI code between platfor
 
 ### Android
 
+* https://github.com/user-attachments/assets/ae495330-a0bb-41ef-9914-b737ec92f0e7
+
 * <img width="270" height="600" alt="image" src="https://github.com/user-attachments/assets/5b010053-7dcd-4432-b4f5-49fa930c5387" />
 * <img width="270" height="600" alt="image" src="https://github.com/user-attachments/assets/7c9d9a75-3113-4754-8113-2b95cae97209" />
 * <img width="270" height="600" alt="image" src="https://github.com/user-attachments/assets/a184cfcc-1756-469c-990c-9748af9c7e6c" />
 * <img width="270" height="600" alt="image" src="https://github.com/user-attachments/assets/3978901f-f7ae-4983-856a-ffc49e086cf9" />
 
 ### Desktop
+
+* Uploading Screen Recording 2025-11-25 011946.mp4…
 
 * <img width="2560" height="1528" alt="image" src="https://github.com/user-attachments/assets/c273dc50-dd65-4d58-a8af-acdd6313cf9f" />
 * <img width="2560" height="1528" alt="image" src="https://github.com/user-attachments/assets/841d38cb-0edb-4c4d-950c-b944bb8e5c95" />
