@@ -36,15 +36,13 @@ This project demonstrates the power of sharing logic and UI code between platfor
 *   **Dependency Injection**: [Koin](https://insert-koin.io/)
 *   **Networking**: [Ktor](https://ktor.io/) (with Custom Error Handling)
 *   **Image Loading**: [Coil 3](https://coil-kt.github.io/coil/)
-*   **Navigation**: [Jetbrains Compose Navigation](https://www.jetbrains.com/help/kotlin-multiplatform-dev/compose-navigation-routing.html)
 *   **Local Storage**: [Room](https://developer.android.com/kotlin/multiplatform/room) (SQLite)
-*   **Date & Time**: [Kotlinx Datetime](https://github.com/Kotlin/kotlinx-datetime)
 *   **Logging**: [Napier](https://github.com/AAkira/Napier)
 *   **Background Work**:
     *   `androidx.work` (Android)
     *   Kotlin Coroutines (Shared)
 
-## 📸 Screenshots
+## 📸 Demo
 
 | Home Screen | Forecast Details | Desktop View |
 |:-----------:|:----------------:|:------------:|
