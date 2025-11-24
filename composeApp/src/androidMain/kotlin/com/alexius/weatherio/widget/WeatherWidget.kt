@@ -89,7 +89,7 @@ class WeatherWidget : GlanceAppWidget(), KoinComponent {
                     )
                     result.onSuccess {
                         Napier.d("Success: ${it.currentWeather}", tag = "WIDGET")
-                        value = it.currentWeather.toWidgetData()
+                        value = it.currentWeather.toWidgetData(it.daily)
                     }.onFailure {
                         Napier.wtf("Failed to load weather data.", it, tag = "WIDGET")
                         value = null
@@ -123,13 +123,15 @@ class WeatherWidget : GlanceAppWidget(), KoinComponent {
             action = action,
             currentWeather = currentWeather
         ) {
-            WeatherWidgetContentDetails(
-                currentWeather = currentWeather!!,
-                iconSize = iconSize,
-                textSize = textSize,
-                useRowLayout = useRowLayout,
-                showDetails = showDetails
-            )
+            if (currentWeather != null) {
+                WeatherWidgetContentDetails(
+                    currentWeather = currentWeather,
+                    iconSize = iconSize,
+                    textSize = textSize,
+                    useRowLayout = useRowLayout,
+                    showDetails = showDetails
+                )
+            }
         }
     }
 }

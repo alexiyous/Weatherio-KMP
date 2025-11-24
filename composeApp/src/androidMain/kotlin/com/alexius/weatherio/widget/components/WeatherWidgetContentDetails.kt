@@ -60,6 +60,10 @@ fun WeatherWidgetContentDetails(
                 text = currentWeather.windInfo,
                 style = TextStyle(fontSize = 16.sp, color = ColorProvider(R.color.widget_onSurfaceVariant)),
             )
+            if (!useRowLayout) {
+                Spacer(modifier = GlanceModifier.height(8.dp))
+                UvIndexWeatherWidgetItem(uvIndex = currentWeather.uvIndex)
+            }
         }
     }
 }
