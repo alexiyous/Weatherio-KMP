@@ -26,6 +26,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.ripple
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
@@ -37,6 +38,9 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.shadow.Shadow
 import androidx.compose.ui.unit.DpOffset
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.LifecycleEventObserver
+import androidx.lifecycle.compose.LocalLifecycleOwner
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.alexius.weatherio.common.ui.ErrorEmptyScreen
 import com.alexius.weatherio.common.ui.Loader
@@ -49,6 +53,7 @@ import com.alexius.weatherio.presentation.forecast.components.SunsetWeatherItem
 import com.alexius.weatherio.presentation.forecast.components.UvIndexWeatherItem
 import com.alexius.weatherio.presentation.home.components.FlagImage
 import com.alexius.weatherio.presentation.utils.NavigationType
+import io.github.aakira.napier.Napier
 import org.koin.compose.viewmodel.koinViewModel
 
 @Composable
@@ -57,16 +62,30 @@ fun ForecastScreen(
     forecastViewModel: ForecastViewModel = koinViewModel(),
     navigationType: NavigationType,
     onSearchClick: () -> Unit,
+    onErrorClick: () -> Unit
 ) {
     val state by forecastViewModel.forecastState.collectAsStateWithLifecycle()
+    val lifecycleOwner = LocalLifecycleOwner.current
 
+    DisposableEffect(lifecycleOwner) {
+        val observer = LifecycleEventObserver { _, event ->
+            if (event == Lifecycle.Event.ON_PAUSE) {
+                Napier.d("ForecastScreen: ON_RESUME")
+                forecastViewModel.refresh()
+            }
+        }
+        lifecycleOwner.lifecycle.addObserver(observer)
+        onDispose {
+            lifecycleOwner.lifecycle.removeObserver(observer)
+        }
+    }
 
     Box(
         modifier = modifier.fillMaxSize(),
         contentAlignment = Alignment.Center,
     ) {
         Column(
-            modifier = Modifier.padding(16.dp),
+            modifier = Modifier.padding(horizontal = 16.dp),
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Center
         ) {
@@ -87,7 +106,7 @@ fun ForecastScreen(
                             modifier = Modifier.fillMaxSize().navigationBarsPadding(),
                             errorEmptyState = state.error!!.toErrorEmptyState(),
                             navigationType = navigationType,
-                            buttonAction = { onSearchClick() }
+                            buttonAction = { onErrorClick() }
                         )
                     }
 

@@ -51,7 +51,6 @@ fun <T> LineGraph(
     val textMeasurer = rememberTextMeasurer()
     val padding = 24.dp
 
-    val circleColor = MaterialTheme.colorScheme.surface
     val titleTextColor = MaterialTheme.colorScheme.onSurface
 
     Box(

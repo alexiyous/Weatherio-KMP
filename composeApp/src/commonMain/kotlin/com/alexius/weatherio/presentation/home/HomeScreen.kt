@@ -33,6 +33,11 @@ fun HomeScreen(
     homeViewModel: HomeViewModel = koinViewModel(),
 ) {
     val state by homeViewModel.homeState.collectAsStateWithLifecycle()
+    
+    if (state.isCheckingSavedLocation) {
+        return
+    }
+    
     var search by rememberSaveable { mutableStateOf("") }
     var showSearchLocation by rememberSaveable(state.selectedLocation) { mutableStateOf(state.selectedLocation == null) }
 
@@ -91,6 +96,9 @@ fun HomeScreen(
                 ),
                 onSearchClick = {
                     showSearchLocation = !showSearchLocation
+                },
+                onErrorClick = {
+                    homeViewModel.saveFavouriteLocation(it)
                 },
                 navigationType = navigationType,
             )

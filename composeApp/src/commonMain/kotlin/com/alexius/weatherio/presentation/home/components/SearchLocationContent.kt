@@ -11,8 +11,14 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
+import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.backhandler.BackHandler
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import com.alexius.weatherio.common.ui.ErrorEmptyScreen
@@ -25,7 +31,7 @@ import com.alexius.weatherio.presentation.home.models.HomeState
 import com.alexius.weatherio.presentation.utils.NavigationType
 import org.jetbrains.compose.ui.tooling.preview.Preview
 
-@OptIn(ExperimentalMaterial3Api::class)
+@OptIn(ExperimentalMaterial3Api::class, ExperimentalComposeUiApi::class)
 @Composable
 fun SearchLocationContent(
     navigationType: NavigationType,
@@ -40,6 +46,19 @@ fun SearchLocationContent(
     val padding = if (navigationType == NavigationType.PERMANENT_NAVIGATION_DRAWER) 200.dp
     else 0.dp
 
+    var expanded by rememberSaveable { mutableStateOf(false) }
+
+    BackHandler(enabled = expanded || state.selectedLocation != null) {
+        if (state.selectedLocation != null) {
+            onNavigateBack()
+            expanded = false
+        } else {
+            if (expanded) {
+                expanded = false
+            }
+        }
+    }
+
     Box(
         modifier = modifier
             .fillMaxWidth()
@@ -47,6 +66,8 @@ fun SearchLocationContent(
         contentAlignment = Alignment.Center
     ) {
         HomeSearchBar(
+            expanded = expanded,
+            onExpandedChange = { expanded = it },
             onNavigateBack = onNavigateBack,
             search = search,
             onSearchChange = onSearchChange,

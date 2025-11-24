@@ -69,6 +69,8 @@ kotlin {
             implementation(libs.bundles.coil)
             implementation(libs.material.icons.extended)
             implementation(libs.napier)
+            implementation("org.jetbrains.compose.ui:ui-backhandler:1.9.3")
+
         }
         commonTest.dependencies {
             implementation(libs.kotlin.test)

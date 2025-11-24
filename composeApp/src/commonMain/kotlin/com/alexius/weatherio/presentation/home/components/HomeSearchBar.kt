@@ -16,10 +16,6 @@ import androidx.compose.material3.SearchBar
 import androidx.compose.material3.SearchBarDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.saveable.rememberSaveable
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -35,13 +31,14 @@ import weatherio.composeapp.generated.resources.country_search_input_field_text
 @Composable
 fun HomeSearchBar(
     modifier: Modifier = Modifier,
+    expanded: Boolean,
+    onExpandedChange: (Boolean) -> Unit,
     onNavigateBack: () -> Unit,
     search: String,
     onSearchChange: (String) -> Unit,
     onSubmit: () -> Unit,
     content: @Composable () -> Unit
 ) {
-    var expanded by rememberSaveable { mutableStateOf(false) }
     val focusManager = LocalFocusManager.current
     val keyboardController = LocalSoftwareKeyboardController.current
 
@@ -58,7 +55,7 @@ fun HomeSearchBar(
             ) {
                 IconButton(onClick = {
                     onNavigateBack()
-                    expanded = false
+                    onExpandedChange(false)
                 }) {
                     Icon(
                         imageVector = Icons.AutoMirrored.Filled.ArrowBack,
@@ -77,7 +74,7 @@ fun HomeSearchBar(
                         focusManager.clearFocus()
                     },
                     expanded = expanded,
-                    onExpandedChange = { expanded = it },
+                    onExpandedChange = onExpandedChange,
                     placeholder = { Text(text = stringResource(Res.string.country_search_input_field_text)) },
                     leadingIcon = {
                         Icon(
@@ -100,7 +97,7 @@ fun HomeSearchBar(
             }
         },
         expanded = expanded,
-        onExpandedChange = { expanded = it },
+        onExpandedChange = onExpandedChange,
         colors = SearchBarDefaults.colors(
             containerColor = MaterialTheme.colorScheme.surface,
             dividerColor = MaterialTheme.colorScheme.primary

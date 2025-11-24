@@ -24,9 +24,12 @@ class HomeViewModel(
     fun getGeolocation() {
         viewModelScope.launch {
             geolocationRepository.geolocation
-                .collect {
+                .collect { location ->
                     _homesState.update { state ->
-                        state.copy(selectedLocation = it)
+                        state.copy(
+                            selectedLocation = location,
+                            isCheckingSavedLocation = false
+                        )
                     }
                 }
         }

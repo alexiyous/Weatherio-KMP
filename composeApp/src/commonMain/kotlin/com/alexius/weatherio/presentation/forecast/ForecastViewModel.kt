@@ -47,6 +47,12 @@ class ForecastViewModel(
         }
     }
 
+    fun refresh() {
+        viewModelScope.launch {
+            fetchWeatherData(forecastState.value.selectedLocation)
+        }
+    }
+
     @OptIn(ExperimentalTime::class)
     private suspend fun fetchWeatherData(geolocation: Geolocation?) {
         _forecastState.update { it.copy(isLoading = true) }
@@ -79,6 +85,8 @@ class ForecastViewModel(
                 timeZone = TimeZone.currentSystemDefault().id
             ).fold(
                 onSuccess = { weather ->
+
+                    Napier.d("Weather data fetched")
 
                     val todayWeatherInfo = weather.daily.dailyWeatherInfo.find { daily ->
                         TimeUtils.isTodayDate(daily.time)

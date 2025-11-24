@@ -6,6 +6,7 @@ import com.alexius.weatherio.common.utils.AppError
 data class HomeState(
     val selectedLocation: Geolocation? = null,
     val isLoading: Boolean = false,
+    val isCheckingSavedLocation: Boolean = true,
     val error: AppError? = null,
     val geolocations: List<Geolocation> = emptyList()
 )
