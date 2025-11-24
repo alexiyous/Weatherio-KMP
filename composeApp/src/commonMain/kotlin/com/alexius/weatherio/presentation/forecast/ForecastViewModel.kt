@@ -38,12 +38,6 @@ class ForecastViewModel(
         workScheduler.scheduleForecastSync()
         viewModelScope.apply {
             launch { getGeolocation() }
-            launch {
-                while(true) {
-                    delay(30.minutes)
-                    fetchWeatherData(forecastState.value.selectedLocation)
-                }
-            }
         }
     }
 
