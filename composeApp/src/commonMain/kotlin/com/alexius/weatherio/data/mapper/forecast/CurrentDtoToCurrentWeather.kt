@@ -13,5 +13,6 @@ fun CurrentDto.toDomain(timeZone: String): CurrentWeather {
         windDirection = WeatherInfo.getWindDirection(this.windDirection10m),
         windSpeed = this.windSpeed10m,
         isDay = this.isDay == 1,
+        weatherCode = this.weatherCode
     )
 }

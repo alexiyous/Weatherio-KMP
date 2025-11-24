@@ -13,7 +13,7 @@ suspend fun CurrentWeather.toWidgetData(): CurrentWeatherWidgetData {
         temperature = this.temperature,
         time = this.time,
         weatherStatusInfo = getString(this.weatherStatus.info),
-        weatherStatusIcon = this.weatherStatus.icon,
+        weatherStatusIcon = this.weatherCode.toAndroidDrawable(),
         windInfo = TextResource.SingleStringResource(Res.string.wind_speed, this.windSpeed, this.windDirection.asString()).asString(),
         isDay = this.isDay,
     )

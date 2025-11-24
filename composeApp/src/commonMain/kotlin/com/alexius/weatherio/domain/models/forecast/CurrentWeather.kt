@@ -9,5 +9,6 @@ data class CurrentWeather(
     val weatherStatus: WeatherInfoItem,
     val windDirection: TextResource,
     val windSpeed: Double,
-    val isDay: Boolean
+    val isDay: Boolean,
+    val weatherCode: Int
 )

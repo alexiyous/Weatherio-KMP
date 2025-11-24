@@ -12,6 +12,8 @@ import androidx.glance.GlanceModifier
 import androidx.glance.Image
 import androidx.glance.ImageProvider
 import androidx.glance.LocalSize
+import androidx.glance.action.actionStartActivity
+import androidx.glance.action.clickable
 import androidx.glance.appwidget.GlanceAppWidget
 import androidx.glance.appwidget.SizeMode
 import androidx.glance.appwidget.provideContent
@@ -29,10 +31,13 @@ import androidx.glance.text.FontWeight
 import androidx.glance.text.Text
 import androidx.glance.text.TextStyle
 import androidx.glance.unit.ColorProvider
+import com.alexius.weatherio.MainActivity
 import com.alexius.weatherio.R
 import com.alexius.weatherio.presentation.forecast.components.DEGREE_SYMBOL
 import com.alexius.weatherio.repository.ForecastRepository
 import com.alexius.weatherio.repository.GeolocationRepository
+import com.alexius.weatherio.widget.components.WeatherWidgetContentDetails
+import com.alexius.weatherio.widget.components.WeatherWidgetLayout
 import com.alexius.weatherio.widget.mapper.toAndroidDrawable
 import com.alexius.weatherio.widget.mapper.toWidgetData
 import com.alexius.weatherio.widget.models.CurrentWeatherWidgetData
@@ -110,63 +115,21 @@ class WeatherWidget : GlanceAppWidget(), KoinComponent {
         val iconSize = if (useRowLayout || !showDetails) 50.dp else 100.dp
         val textSize = if (useRowLayout || !showDetails) 30.sp else 60.sp
 
-        val content = @Composable {
-            if (currentWeather != null) {
-                Image(
-                    provider = ImageProvider(currentWeather.weatherStatusIcon.toAndroidDrawable()),
-                    contentDescription = currentWeather.weatherStatusInfo,
-                    modifier = GlanceModifier.size(iconSize),
-                    colorFilter = ColorFilter.tint(ColorProvider(R.color.widget_primary))
-                )
-                Spacer(modifier = if (useRowLayout) GlanceModifier.width(12.dp) else GlanceModifier.height(8.dp))
-                Column(
-                    horizontalAlignment = if (useRowLayout) Alignment.Horizontal.Start else Alignment.Horizontal.CenterHorizontally
-                ) {
-                    Text(
-                        text = "${currentWeather.temperature}$DEGREE_SYMBOL",
-                        style = TextStyle(
-                            fontWeight = FontWeight.Bold,
-                            fontSize = textSize,
-                            color = ColorProvider(R.color.widget_onSurface)
-                        ),
-                    )
-                    if (showDetails) {
-                        Spacer(modifier = GlanceModifier.height(8.dp))
-                        Text(
-                            text = currentWeather.weatherStatusInfo,
-                            style = TextStyle(fontSize = 20.sp, color = ColorProvider(R.color.widget_onSurfaceVariant)),
-                        )
-                        Text(
-                            text = currentWeather.windInfo,
-                            style = TextStyle(fontSize = 16.sp, color = ColorProvider(R.color.widget_onSurfaceVariant)),
-                        )
-                    }
-                }
-            }
-        }
 
-        if (useRowLayout) {
-            Row(
-                modifier = GlanceModifier
-                    .fillMaxSize()
-                    .background(ColorProvider(R.color.widget_background))
-                    .padding(12.dp),
-                verticalAlignment = Alignment.Vertical.CenterVertically,
-                horizontalAlignment = Alignment.Horizontal.CenterHorizontally,
-            ) {
-                content()
-            }
-        } else {
-            Column(
-                modifier = GlanceModifier
-                    .fillMaxSize()
-                    .background(ColorProvider(R.color.widget_background))
-                    .padding(12.dp),
-                verticalAlignment = Alignment.Vertical.CenterVertically,
-                horizontalAlignment = Alignment.Horizontal.CenterHorizontally,
-            ) {
-                content()
-            }
+        val action = actionStartActivity(MainActivity::class.java)
+
+        WeatherWidgetLayout(
+            useRowLayout = useRowLayout,
+            action = action,
+            currentWeather = currentWeather
+        ) {
+            WeatherWidgetContentDetails(
+                currentWeather = currentWeather!!,
+                iconSize = iconSize,
+                textSize = textSize,
+                useRowLayout = useRowLayout,
+                showDetails = showDetails
+            )
         }
     }
 }
