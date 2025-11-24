@@ -23,6 +23,7 @@ import kotlinx.datetime.toLocalDateTime
 import kotlin.math.abs
 import kotlin.time.Clock
 import kotlin.time.Duration.Companion.minutes
+import kotlin.time.Duration.Companion.seconds
 import kotlin.time.ExperimentalTime
 
 class ForecastViewModel(
@@ -38,12 +39,13 @@ class ForecastViewModel(
         workScheduler.scheduleForecastSync()
         viewModelScope.apply {
             launch { getGeolocation() }
-        }
-    }
-
-    fun refresh() {
-        viewModelScope.launch {
-            fetchWeatherData(forecastState.value.selectedLocation)
+            launch {
+                while (true) {
+                    Napier.d("Fetch", tag = "FORECAST")
+                    delay(15.minutes)
+                    fetchWeatherData(forecastState.value.selectedLocation)
+                }
+            }
         }
     }
 
@@ -96,6 +98,7 @@ class ForecastViewModel(
                     }
                 },
                 onFailure = { error ->
+                    Napier.wtf("Failed to fetch weather data.", tag = "FORECAST", throwable = error)
                     _forecastState.update { state ->
                         state.copy(
                             isLoading = false,

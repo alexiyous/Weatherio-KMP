@@ -65,20 +65,6 @@ fun ForecastScreen(
     onErrorClick: () -> Unit
 ) {
     val state by forecastViewModel.forecastState.collectAsStateWithLifecycle()
-    val lifecycleOwner = LocalLifecycleOwner.current
-
-    DisposableEffect(lifecycleOwner) {
-        val observer = LifecycleEventObserver { _, event ->
-            if (event == Lifecycle.Event.ON_PAUSE) {
-                Napier.d("ForecastScreen: ON_RESUME")
-                forecastViewModel.refresh()
-            }
-        }
-        lifecycleOwner.lifecycle.addObserver(observer)
-        onDispose {
-            lifecycleOwner.lifecycle.removeObserver(observer)
-        }
-    }
 
     Box(
         modifier = modifier.fillMaxSize(),
