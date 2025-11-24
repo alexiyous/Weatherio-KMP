@@ -44,6 +44,7 @@ kotlin {
             implementation(libs.koin.androidx.workmanager)
             implementation(libs.ktor.client.okhttp)
             implementation(libs.androidx.work.runtime.ktx)
+            implementation(libs.bundles.glance)
         }
         commonMain.dependencies {
             implementation(compose.runtime)

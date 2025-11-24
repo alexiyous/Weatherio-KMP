@@ -1,3 +1,6 @@
 <resources>
     <string name="app_name">Weatherio</string>
+    <string name="weather_widget_description">Shows the current weather conditions.</string>
+
+    <string name="wind_speed_widget">Wind Speed: %1$d Km/h %2$s</string>
 </resources>

@@ -32,7 +32,13 @@ suspend fun TextResource.asString(): String {
     return when(this) {
         is TextResource.PlainText -> text
         is TextResource.PluralResource -> getPluralString(resId, quantity)
-        is TextResource.SingleStringResource -> getString(resId)
+        is TextResource.SingleStringResource -> {
+            if (formatArgs.isNotEmpty()) {
+                getString(resId, *formatArgs.toTypedArray())
+            } else {
+                getString(resId)
+            }
+        }
     }
 }
 

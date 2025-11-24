@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="wind_speed_widget">Kecepatan Angin: %1$d Km/jam %2$s</string>
+
+</resources>

@@ -9,11 +9,11 @@ sealed class TextResource {
 
     data class SingleStringResource(
         val resId: StringResource,
-        val formatArgs: List<String> = emptyList(),
+        val formatArgs: List<Any> = emptyList(),
     ) : TextResource() {
         constructor(
             resId: StringResource,
-            vararg formatArgs: String,
+            vararg formatArgs: Any,
         ) : this(resId = resId, formatArgs = formatArgs.toList())
     }
 

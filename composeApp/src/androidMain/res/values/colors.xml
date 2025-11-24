@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="widget_background_color">#2E2E2E</color>
+
+    <!-- Neu Light Theme Colors -->
+    <color name="widget_primary">#FF6C7A89</color>
+    <color name="widget_onPrimary">#FFFFFFFF</color>
+    <color name="widget_background">#FFE0E5EC</color>
+    <color name="widget_onBackground">#FF4A5568</color>
+    <color name="widget_surface">#FFE0E5EC</color>
+    <color name="widget_onSurface">#FF4A5568</color>
+    <color name="widget_onSurfaceVariant">#FF718096</color>
+    <color name="widget_secondary">#FF6C7A89</color>
+</resources>
