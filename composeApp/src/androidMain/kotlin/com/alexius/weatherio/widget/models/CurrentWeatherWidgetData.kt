@@ -7,8 +7,9 @@ data class CurrentWeatherWidgetData(
     val temperature: Double,
     val time: String,
     val weatherStatusInfo: String,
-    val weatherStatusIcon: Int,
+    val weatherCode: Int,
     val windInfo: String,
     val isDay: Boolean,
-    val uvIndex: Double
+    val uvIndex: Double,
+    val usingOldValue: Boolean
 )

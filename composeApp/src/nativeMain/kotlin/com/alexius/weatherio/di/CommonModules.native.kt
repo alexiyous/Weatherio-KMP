@@ -2,8 +2,10 @@ package com.alexius.weatherio.di
 
 import com.alexius.weatherio.data.datasource.local.DatabaseFactory
 import com.alexius.weatherio.domain.notification.NotificationManager
+import com.alexius.weatherio.domain.widget.WidgetUpdater
 import com.alexius.weatherio.domain.work.WorkScheduler
 import com.alexius.weatherio.notification.NativeNotificationManager
+import com.alexius.weatherio.widget.NativeWidgetUpdater
 import com.alexius.weatherio.work.NativeWorkScheduler
 import io.ktor.client.engine.HttpClientEngine
 import io.ktor.client.engine.darwin.Darwin
@@ -16,4 +18,5 @@ actual val platformModule: Module
         single { DatabaseFactory() }
         single<WorkScheduler> { NativeWorkScheduler() }
         single<NotificationManager> { NativeNotificationManager() }
+        single<WidgetUpdater> { NativeWidgetUpdater() }
     }

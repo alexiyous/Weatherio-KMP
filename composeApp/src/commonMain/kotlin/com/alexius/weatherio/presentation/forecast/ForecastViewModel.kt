@@ -6,6 +6,7 @@ import com.alexius.weatherio.common.utils.TimeUtils
 import com.alexius.weatherio.common.utils.toAppError
 import com.alexius.weatherio.domain.models.home.Geolocation
 import com.alexius.weatherio.domain.notification.NotificationManager
+import com.alexius.weatherio.domain.widget.WidgetUpdater
 import com.alexius.weatherio.domain.work.WorkScheduler
 import com.alexius.weatherio.presentation.forecast.models.ForecastState
 import com.alexius.weatherio.repository.ForecastRepository
@@ -30,6 +31,7 @@ class ForecastViewModel(
     private val forecastRepository: ForecastRepository,
     private val geolocationRepository: GeolocationRepository,
     private val workScheduler: WorkScheduler,
+    private val widgetUpdater: WidgetUpdater
 ) : ViewModel() {
 
     private val _forecastState = MutableStateFlow(ForecastState())
@@ -42,7 +44,7 @@ class ForecastViewModel(
             launch {
                 while (true) {
                     Napier.d("Fetch", tag = "FORECAST")
-                    delay(15.minutes)
+                    delay(30.minutes)
                     fetchWeatherData(forecastState.value.selectedLocation)
                 }
             }
@@ -96,6 +98,8 @@ class ForecastViewModel(
                             error = null
                         )
                     }
+
+                    widgetUpdater.updateAllWidgets()
                 },
                 onFailure = { error ->
                     Napier.wtf("Failed to fetch weather data.", tag = "FORECAST", throwable = error)

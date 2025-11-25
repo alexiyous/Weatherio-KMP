@@ -2,8 +2,10 @@ package com.alexius.weatherio.di
 
 import com.alexius.weatherio.data.datasource.local.DatabaseFactory
 import com.alexius.weatherio.domain.notification.NotificationManager
+import com.alexius.weatherio.domain.widget.WidgetUpdater
 import com.alexius.weatherio.domain.work.WorkScheduler
 import com.alexius.weatherio.notification.DesktopNotificationManager
+import com.alexius.weatherio.widget.DesktopWidgetUpdater
 import com.alexius.weatherio.work.DesktopWorkScheduler
 import io.ktor.client.engine.HttpClientEngine
 import io.ktor.client.engine.okhttp.OkHttp
@@ -16,4 +18,5 @@ actual val platformModule: Module
         single { DatabaseFactory() }
         single<WorkScheduler> { DesktopWorkScheduler() }
         single<NotificationManager> { DesktopNotificationManager() }
+        single<WidgetUpdater> { DesktopWidgetUpdater() }
     }

@@ -5,13 +5,20 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.glance.Button
+import androidx.glance.ButtonDefaults
 import androidx.glance.ColorFilter
 import androidx.glance.GlanceModifier
 import androidx.glance.Image
 import androidx.glance.ImageProvider
+import androidx.glance.action.Action
+import androidx.glance.action.clickable
+import androidx.glance.appwidget.action.ActionCallback
 import androidx.glance.layout.Alignment
 import androidx.glance.layout.Column
+import androidx.glance.layout.Row
 import androidx.glance.layout.Spacer
+import androidx.glance.layout.fillMaxWidth
 import androidx.glance.layout.height
 import androidx.glance.layout.size
 import androidx.glance.layout.width
@@ -30,26 +37,30 @@ fun WeatherWidgetContentDetails(
     iconSize: Dp,
     textSize: TextUnit,
     useRowLayout: Boolean,
-    showDetails: Boolean
+    showDetails: Boolean,
+    refreshCallback: Action
 ) {
-    Image(
-        provider = ImageProvider(currentWeather.weatherStatusIcon),
-        contentDescription = currentWeather.weatherStatusInfo,
-        modifier = GlanceModifier.size(iconSize),
-        colorFilter = ColorFilter.tint(ColorProvider(R.color.widget_primary))
-    )
-    Spacer(modifier = if (useRowLayout) GlanceModifier.width(12.dp) else GlanceModifier.height(8.dp))
     Column(
         horizontalAlignment = if (useRowLayout) Alignment.Horizontal.Start else Alignment.Horizontal.CenterHorizontally
     ) {
-        Text(
-            text = "${currentWeather.temperature}$DEGREE_SYMBOL",
-            style = TextStyle(
-                fontWeight = FontWeight.Bold,
-                fontSize = textSize,
-                color = ColorProvider(R.color.widget_onSurface)
-            ),
-        )
+        Row(verticalAlignment = Alignment.CenterVertically) {
+            Image(
+                provider = ImageProvider(currentWeather.weatherCode.toAndroidDrawable()),
+                contentDescription = currentWeather.weatherStatusInfo,
+                modifier = GlanceModifier.size(iconSize),
+                colorFilter = ColorFilter.tint(ColorProvider(R.color.widget_primary))
+            )
+            Spacer(modifier = if (useRowLayout) GlanceModifier.width(12.dp) else GlanceModifier.height(8.dp))
+            Text(
+                text = "${currentWeather.temperature}$DEGREE_SYMBOL",
+                style = TextStyle(
+                    fontWeight = FontWeight.Bold,
+                    fontSize = textSize,
+                    color = ColorProvider(R.color.widget_onSurface)
+                ),
+            )
+        }
+
         if (showDetails) {
             Spacer(modifier = GlanceModifier.height(8.dp))
             Text(
@@ -63,6 +74,21 @@ fun WeatherWidgetContentDetails(
             if (!useRowLayout) {
                 Spacer(modifier = GlanceModifier.height(8.dp))
                 UvIndexWeatherWidgetItem(uvIndex = currentWeather.uvIndex)
+            }
+        }
+
+        if (currentWeather.usingOldValue) {
+            Spacer(modifier = GlanceModifier.height(4.dp))
+            Row(verticalAlignment = Alignment.CenterVertically) {
+                Button(
+                    text = "Refresh",
+                    modifier = GlanceModifier.fillMaxWidth().height(32.dp),
+                    onClick = refreshCallback,
+                    colors = ButtonDefaults.buttonColors(
+                        backgroundColor = ColorProvider(R.color.widget_primary),
+                        contentColor = ColorProvider(R.color.widget_onPrimary)
+                    )
+                )
             }
         }
     }
