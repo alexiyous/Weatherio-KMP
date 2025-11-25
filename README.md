@@ -57,8 +57,6 @@ This project demonstrates the power of sharing logic and UI code between platfor
 
 ### Desktop
 
-* Uploading Screen Recording 2025-11-25 011946.mp4…
-
 * <img width="2560" height="1528" alt="image" src="https://github.com/user-attachments/assets/c273dc50-dd65-4d58-a8af-acdd6313cf9f" />
 * <img width="2560" height="1528" alt="image" src="https://github.com/user-attachments/assets/841d38cb-0edb-4c4d-950c-b944bb8e5c95" />
 * <img width="2560" height="1528" alt="image" src="https://github.com/user-attachments/assets/78468c2e-c6ce-4527-9d61-8008af6b3bef" />
