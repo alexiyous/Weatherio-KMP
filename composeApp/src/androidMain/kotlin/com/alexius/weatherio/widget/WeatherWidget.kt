@@ -8,16 +8,11 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.glance.Button
 import androidx.glance.ButtonDefaults
-import androidx.glance.ColorFilter
 import androidx.glance.GlanceId
 import androidx.glance.GlanceModifier
-import androidx.glance.Image
-import androidx.glance.ImageProvider
 import androidx.glance.LocalSize
 import androidx.glance.action.ActionParameters
 import androidx.glance.action.actionStartActivity
-import androidx.glance.action.clickable
-import androidx.glance.appwidget.CircularProgressIndicator
 import androidx.glance.appwidget.GlanceAppWidget
 import androidx.glance.appwidget.SizeMode
 import androidx.glance.appwidget.action.ActionCallback
@@ -25,14 +20,8 @@ import androidx.glance.appwidget.action.actionRunCallback
 import androidx.glance.appwidget.provideContent
 import androidx.glance.layout.Alignment
 import androidx.glance.layout.Row
-import androidx.glance.layout.Spacer
 import androidx.glance.layout.fillMaxWidth
 import androidx.glance.layout.height
-import androidx.glance.layout.size
-import androidx.glance.layout.width
-import androidx.glance.text.FontWeight
-import androidx.glance.text.Text
-import androidx.glance.text.TextStyle
 import androidx.glance.unit.ColorProvider
 import com.alexius.weatherio.MainActivity
 import com.alexius.weatherio.R
@@ -42,6 +31,7 @@ import com.alexius.weatherio.widget.components.WeatherWidgetContentDetails
 import com.alexius.weatherio.widget.components.WeatherWidgetLayout
 import com.alexius.weatherio.widget.models.CurrentWeatherWidgetData
 import com.alexius.weatherio.widget.ui.WidgetTheme
+import io.github.aakira.napier.Napier
 import kotlinx.coroutines.flow.map
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
@@ -116,7 +106,7 @@ private fun WeatherWidgetContent(currentWeather: CurrentWeatherWidgetData?) {
     }
 }
 
-private class RefreshCallback : ActionCallback, KoinComponent {
+class RefreshCallback : ActionCallback, KoinComponent {
 
     private val forecastRepository: ForecastRepository by inject()
     private val geolocationRepository: GeolocationRepository by inject()
@@ -128,5 +118,6 @@ private class RefreshCallback : ActionCallback, KoinComponent {
     ) {
         WeatherWidgetDataStore.updateWidgetData(context, forecastRepository, geolocationRepository)
         WeatherWidget().update(context, glanceId)
+        Napier.d("Refresh Called")
     }
 }

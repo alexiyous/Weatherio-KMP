@@ -5,7 +5,7 @@
 
 This project demonstrates the power of sharing logic and UI code between platforms while accessing platform-specific features like WorkManager, Notifications, and System Tray integration.
 
-> **Note:** This project was inspired by [Forecastly](https://github.com/Hoodlab/Forecastly). While the core structure provided a learning foundation, **Weatherio** includes significant customizations, new features (like background sync & cross-platform notifications), and improvements aligned with a specific product vision.
+> **Note:** This project was inspired by [Forecastly](https://github.com/Hoodlab/Forecastly). While the core structure provided a learning foundation, **Weatherio** includes significant customizations, new features (like background sync, cross-platform notifications, etc), and improvements aligned with a specific product vision.
 
 ## ✨ Features
 
