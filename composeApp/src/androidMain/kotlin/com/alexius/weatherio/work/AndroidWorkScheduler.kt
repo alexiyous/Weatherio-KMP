@@ -19,7 +19,7 @@ class AndroidWorkScheduler(
             .build()
 
         val workRequest = PeriodicWorkRequestBuilder<ForecastWorker>(
-            30, TimeUnit.MINUTES
+            1, TimeUnit.HOURS
         )
             .setConstraints(constraints)
             .build()
