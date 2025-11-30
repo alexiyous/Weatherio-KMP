@@ -31,6 +31,8 @@ coil3 = "3.0.0-rc02"
 ksp = "2.2.20-2.0.4"
 sqlite = "2.5.0-alpha11"
 room = "2.7.0-alpha11"
+googleFirebaseAppdistribution = "5.2.0"
+googleGmsGoogleServices = "4.4.4"
 
 [libraries]
 androidx-material-icons-extended = { module = "androidx.compose.material:material-icons-extended", version.ref = "materialIconsExtended" }
@@ -93,6 +95,8 @@ jetbrains-kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serializati
 ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
 room = { id = "androidx.room", version.ref = "room" }
 stability-analyzer = { id = "com.github.skydoves.compose.stability.analyzer", version = "0.5.3" }
+google-firebase-appdistribution = { id = "com.google.firebase.appdistribution", version.ref = "googleFirebaseAppdistribution" }
+google-gms-google-services = { id = "com.google.gms.google-services", version.ref = "googleGmsGoogleServices" }
 
 [bundles]
 ktor = [
