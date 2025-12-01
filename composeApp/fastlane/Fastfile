@@ -19,7 +19,7 @@ platform :android do
   desc "Builds android flavor, distribute to firebase based on detected branch"
   lane :distribute do
       # Get current branch name
-      branch = current_git_branch
+      branch = git_branch
 
       puts "Starting distribution for branch: #{branch}"
 
