@@ -72,7 +72,7 @@ platform :android do
 
       google_services_path = "../src/#{flavor}/google-services.json"
       FileUtils.mkdir_p(File.dirname(google_services_path))
-      File.open(google_services_path, "wb") { |file| file.write((Base64.decode64(google_services_b64)) }
+      File.open(google_services_path, "wb") { |file| file.write((Base64.decode64(google_services_b64))) }
       puts "CREATED #{google_services_path}"
 
       firebase_creds_b64 = ENV['FIREBASE_SERVICE_ACCOUNT_B64']
