@@ -79,7 +79,9 @@ platform :android do
   private_lane :_generate_release_notes do |options|
       pr_description = ENV['PR_DESCRIPTION']
       release_notes = (pr_description.nil? || pr_description.strip.empty?) ? "Automated build from CI." : pr_description
-      File.write(options[:output_path], release_notes)
+
+      output_path = File.expand_path(options[:output_path], __dir__)
+      File.write(output_path, release_notes)
       puts "CREATED release notes and saved to #{options[:output_path]}"
   end
 
@@ -90,12 +92,13 @@ platform :android do
       )
 
       apk_path = "build/outputs/apk/#{options[:flavor]}/release/composeApp-#{options[:flavor]}-release.apk"
+      release_notes_path = File.expand_path(options[:release_notes_path], __dir__)
 
       firebase_app_distribution(
         app: options[:firebase_app_id],
         service_credentials_file: ENV['FIREBASE_APP_DISTRIBUTION_SERVICE_CREDENTIALS_FILE'],
         groups: options[:tester_groups],
-        release_notes_file: options[:release_notes_path],
+        release_notes_file: release_notes_path,
         android_artifact_type: "APK",
         android_artifact_path: apk_path,
         debug: true
