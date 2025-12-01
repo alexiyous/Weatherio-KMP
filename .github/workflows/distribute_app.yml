@@ -46,7 +46,7 @@ jobs:
           working-directory: './composeApp'
 
       - name: Run Unit Tests
-        run: ./gradlew test
+        run: bash gradlew test
 
       - name: Create Keystore Properties for Gradle
         run: |
