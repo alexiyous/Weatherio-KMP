@@ -45,6 +45,10 @@ jobs:
           bundler-cache: true
           working-directory: './composeApp'
 
+      - name: Create google-services.json
+        run: |
+          echo "${{ secrets.GOOGLE_SERVICES_JSON_B64 }}" | base64 --decode > composeApp/google-services.json
+
       - name: Run Unit Tests
         run: |
           chmod +x ./gradlew
@@ -62,7 +66,6 @@ jobs:
 
       - name: Run Fastlane Distribution
         env:
-          GOOGLE_SERVICES_JSON_B64: ${{ secrets.GOOGLE_SERVICES_JSON_B64 }}
           FIREBASE_SERVICE_ACCOUNT_B64: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_B64 }}
           FIREBASE_APP_ID: ${{ secrets.FIREBASE_APP_ID }}
           PR_DESCRIPTION: ${{ steps.pr_info.outputs.body }}
