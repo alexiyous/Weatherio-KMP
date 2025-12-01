@@ -1,0 +1,61 @@
+name: Test, Build, and Distribute App (android for now)
+
+on:
+  push:
+    branches:
+      - dev
+      - staging
+      - main
+      - master
+
+jobs:
+  test-build-and-distribute:
+    environment: ${{ (github.ref_name == 'main' || github.ref_name == 'master') && 'prod' || (github.ref_name == 'staging' && 'staging') || 'dev' }}
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+        with:
+            fetch-depth: 0
+
+      - name: Get PR Info
+        id: pr_info
+        uses: stefan-pr-info/pr-info-action@v2
+
+      - name: Set Up JDK 11
+        uses: actions/setup-java@v4
+        with:
+          java-version: '11'
+          distribution: 'temurin'
+
+      - name: Setup Ruby and Bundler
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '3.1'
+          bundler-cache: true
+          working-directory: './composeApp'
+
+      - name: Run Unit Tests
+        run: ./gradlew test
+
+      - name: Create Keystore Properties for Gradle
+        run: |
+          mkdir -p composeApp/keystore
+          echo "${{ secrets.RELEASE_KEYSTORE_B64 }}" | base64 --decode > composeApp/keystore/weatherio-release-key.jks
+          
+          echo "storePassword=${{ secrets.KEYSTORE_PASSWORD }}" > keystore.properties
+          echo "keyAlias=${{ secrets.KEY_ALIAS }}" >> keystore.properties
+          echo "keyPassword=${{ secrets.KEY_PASSWORD }}" >> keystore.properties
+          echo "storeFile=./keystore/weatherio-release-key.jks" >> keystore.properties
+
+      - name: Run Fastlane Distribution
+        env:
+          GOOGLE_SERVICES_JSON_B64: ${{ secrets.GOOGLE_SERVICES_JSON_B64 }}
+          FIREBASE_SERVICE_ACCOUNT_B64: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_B64 }}
+          FIREBASE_APP_ID: ${{ secrets.FIREBASE_APP_ID }}
+          PR_DESCRIPTION: ${{ steps.pr_info.outputs.body }}
+        run: |
+          cd ./composeApp
+          bundle exec fastlane distribute

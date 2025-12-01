@@ -16,23 +16,101 @@
 default_platform(:android)
 
 platform :android do
-  desc "Runs all the tests"
-  lane :test do
-    gradle(task: "test")
+  desc "Builds android flavor, distribute to firebase based on detected branch"
+  lane :distribute do
+      # Get current branch name
+      branch = current_git_branch
+
+      puts "Starting distribution for branch: #{branch}"
+
+      # hash to hold current build config
+      config = {}
+
+      case branch
+          when 'dev'
+              config = {
+                flavor: 'dev',
+                firebase_app_id: ENV['FIREBASE_APP_ID'],
+                tester_groups: 'dev-testers',
+                release_notes_path: '../release_notes_dev.txt'
+              }
+          when 'staging'
+              config = {
+                flavor: 'staging',
+                firebase_app_id: ENV['FIREBASE_APP_ID'],
+                tester_groups: 'qa-testers',
+                release_notes_path: '../release_notes_dev.txt'
+              }
+          when 'master', 'main'
+              config = {
+                flavor: 'prod',
+                firebase_app_id: ENV['FIREBASE_APP_ID'],
+                tester_groups: 'internal-release-team',
+                release_notes_path: '../release_notes_prod.txt'
+              }
+          else
+              UI.user_error!("Unsupported branch for distribution. Current supported branch: 'dev', 'staging', 'master'/'main'.")
+      end
+
+      UI.user_error!("FIREBASE_APP_ID not found") if config[:firebase_app_id].to_s.empty?
+
+      # CI Setup
+      _setup_ci_environment(flavor: config[:flavor])
+
+      # release notes
+      _generate_release_notes(output_path: config[:release_notes_path])
+
+      # distribute
+      _distribute_to_firebase(config)
   end
 
-  desc "Submit a new Beta Build to Crashlytics Beta"
-  lane :beta do
-    gradle(task: "clean assembleRelease")
-    crashlytics
-  
-    # sh "your_script.sh"
-    # You can also use other beta testing services here
+  private_lane :_setup_ci_environment do |options|
+      flavor = options[:flavor]
+
+      google_services_b64 = ENV['GOOGLE_SERVICES_JSON_B64']
+      UI.user_error!("Missing GOOGLE_SERVICES_JSON_B64 environment variable") if google_services_b64.to_s.empty?
+
+      google_services_path = "../src/#{flavor}/google-services.json"
+      FileUtils.mkdir_p(File.dirname(google_services_path))
+      File.open(google_services_path, "wb") { |file| file.write((Base64.decode64(google_services_b64)) }
+      puts "CREATED #{google_services_path}"
+
+      firebase_creds_b64 = ENV['FIREBASE_SERVICE_ACCOUNT_B64']
+      UI.user_error!("Missing FIREBASE_SERVICE_ACCOUNT_B64 environment variable") if firebase_creds_b64.to_s.empty?
+
+      credentials_path = "/tmp/firebase_credentials.json"
+      File.open(credentials_path, "wb") { |file| file.write(Base64.decode64(firebase_creds_b64)) }
+      ENV['FIREBASE_APP_DISTRIBUTION_SERVICE_CREDENTIALS_FILE'] = credentials_path
+      puts "CREATED firebase service account credentials at #{credentials_path}"
   end
 
-  desc "Deploy a new version to the Google Play"
-  lane :deploy do
-    gradle(task: "clean assembleRelease")
-    upload_to_play_store
+  private_lane :_generate_release_notes do |options|
+      pr_description = ENV['PR_DESCRIPTION']
+      release_notes = (pr_description.nil? || pr_description.strip.empty?) ? "Automated build from CI." : pr_description
+      File.write(options[:output_path], release_notes)
+      puts "CREATED release notes and saved to #{options[:output_path]}"
   end
+
+  private_lane :_distribute_to_firebase do |options|
+      gradle(
+          task: "assemble#{options[:flavor].capitalize}Release",
+          project_dir: '../'
+      )
+
+      apk_path = "build/outputs/apk/#{options[:flavor]}/release/composeApp-#{options[:flavor]}-release.apk"
+
+      firebase_app_distribution(
+        app: options[:firebase_app_id],
+        service_credentials_file: ENV['FIREBASE_APP_DISTRIBUTION_SERVICE_CREDENTIALS_FILE'],
+        groups: options[:tester_groups],
+        release_notes_file: options[:release_notes_path],
+        android_artifact_type: "APK",
+        android_artifact_type: apk_path,
+        debug: true
+      )
+
+      puts "SUCCESS - Distributed #{options[:flavor]} build to Firebase App Distribution"
+   end
 end
+
+
