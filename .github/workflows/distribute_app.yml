@@ -32,10 +32,10 @@ jobs:
           else
             echo "body=" >> $GITHUB_OUTPUT
           fi
-      - name: Set Up JDK 11
+      - name: Set Up JDK 17
         uses: actions/setup-java@v4
         with:
-          java-version: '11'
+          java-version: '17'
           distribution: 'temurin'
 
       - name: Setup Ruby and Bundler
