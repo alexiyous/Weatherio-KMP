@@ -67,14 +67,6 @@ platform :android do
   private_lane :_setup_ci_environment do |options|
       flavor = options[:flavor]
 
-      google_services_b64 = ENV['GOOGLE_SERVICES_JSON_B64']
-      UI.user_error!("Missing GOOGLE_SERVICES_JSON_B64 environment variable") if google_services_b64.to_s.empty?
-
-      google_services_path = "../src/#{flavor}/google-services.json"
-      FileUtils.mkdir_p(File.dirname(google_services_path))
-      File.open(google_services_path, "wb") { |file| file.write((Base64.decode64(google_services_b64))) }
-      puts "CREATED #{google_services_path}"
-
       firebase_creds_b64 = ENV['FIREBASE_SERVICE_ACCOUNT_B64']
       UI.user_error!("Missing FIREBASE_SERVICE_ACCOUNT_B64 environment variable") if firebase_creds_b64.to_s.empty?
 
