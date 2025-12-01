@@ -22,8 +22,16 @@ jobs:
 
       - name: Get PR Info
         id: pr_info
-        uses: stefan-pr-info/pr-info-action@v2
-
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          PR_NUMBER=$(gh pr list --state merged --search "SHA:${{ github.sha }}" --json number --jq '.[0].number')
+          if [ -n "$PR_NUMBER" ]; then
+            PR_BODY=$(gh pr view $PR_NUMBER --json body --jq '.body')
+            echo "body=$PR_BODY" >> $GITHUB_OUTPUT
+          else
+            echo "body=" >> $GITHUB_OUTPUT
+          fi
       - name: Set Up JDK 11
         uses: actions/setup-java@v4
         with:
