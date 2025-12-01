@@ -44,7 +44,7 @@ jobs:
           ruby-version: '3.4.7'
           bundler-cache: true
           working-directory: './composeApp'
-      # trigger
+
       - name: Create google-services.json
         run: |
           echo "${{ secrets.GOOGLE_SERVICES_JSON_B64 }}" | base64 --decode > composeApp/google-services.json
@@ -52,7 +52,13 @@ jobs:
       - name: Run Unit Tests
         run: |
           chmod +x ./gradlew
-          ./gradlew test
+          if [[ "${{ github.ref_name }}" == "main" || "${{ github.ref_name }}" == "master" ]]; then
+            ./gradlew testProdDebugUnitTest
+          elif [[ "${{ github.ref_name }}" == "staging" ]]; then
+            ./gradlew testStagingDebugUnitTest
+          else
+            ./gradlew testDevDebugUnitTest
+          fi
 
       - name: Create Keystore Properties for Gradle
         run: |
