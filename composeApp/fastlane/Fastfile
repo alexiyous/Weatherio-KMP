@@ -105,7 +105,7 @@ platform :android do
         groups: options[:tester_groups],
         release_notes_file: options[:release_notes_path],
         android_artifact_type: "APK",
-        android_artifact_type: apk_path,
+        android_artifact_path: apk_path,
         debug: true
       )
 
