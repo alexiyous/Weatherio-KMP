@@ -155,7 +155,7 @@ end
           project_dir: '../'
       )
 
-      aab_path = "build/outputs/bundle/#{options[:flavor]}/release/composeApp-#{options[:flavor]}-release.aab"
+      aab_path = "build/outputs/bundle/#{options[:flavor]}Release/composeApp-#{options[:flavor]}-release.aab"
       release_notes_path = File.expand_path(options[:release_notes_path], __dir__)
 
       firebase_app_distribution(
