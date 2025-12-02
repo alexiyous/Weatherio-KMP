@@ -1,7 +1,8 @@
 name: Test, Build, and Distribute App (android for now)
 
 on:
-  push:
+  pull_request:
+    types: [closed]
     branches:
       - dev
       - staging
@@ -10,6 +11,7 @@ on:
 
 jobs:
   test-build-and-distribute:
+    if: github.event.pull_request.merged == true
     environment: ${{ (github.ref_name == 'main' || github.ref_name == 'master') && 'prod' || (github.ref_name == 'staging' && 'staging') || 'dev' }}
 
     runs-on: ubuntu-latest
