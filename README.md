@@ -46,6 +46,53 @@ This project demonstrates the power of sharing logic and UI code between platfor
     *   `androidx.work` (Android)
     *   Kotlin Coroutines (Shared)
 
+## 🔄 CI/CD Pipeline (Android)
+
+Fully automated GitHub Actions + Fastlane workflow that delivers builds to Firebase App Distribution in <3 minutes post-merge.
+
+### Pipeline Flow
+
+1. **Trigger**: Push to `dev`/`staging`/`main` branches
+2. **Extract PR description** → Becomes Firebase release notes
+3. **Run flavor-specific tests** → `testDevDebugUnitTest`, `testStagingDebugUnitTest`, or `testProdDebugUnitTest`
+4. **Smart version bump**:
+   - Analyzes last 5 commits' Git diff
+   - >1000 lines or >50 files = **MAJOR** (1.0.0 → 2.0.0)
+   - >300 lines or >15 files = **MINOR** (1.2.0 → 1.3.0)
+   - Otherwise = **PATCH** (1.2.3 → 1.2.4)
+5. **Fetch current version** → Firebase API (falls back to Gradle on first build)
+6. **Auto-increment** `versionCode` and `versionName` in `build.gradle.kts`
+7. **Build signed APK** → `assembleDevRelease`, `assembleStagingRelease`, or `assembleProdRelease`
+8. **Upload to Firebase** → Separate tester groups per environment
+9. **Notify testers** → Automatic push with release notes
+
+### Environment Mapping
+
+- `dev` → Dev testers (test builds only)
+- `staging` → QA testers (full release cycle)
+- `main`/`master` → Internal release team (production candidates)
+
+### Secrets Configuration
+
+Required GitHub secrets (base64-encoded):
+- `GOOGLE_SERVICES_JSON_B64` → Firebase config
+- `RELEASE_KEYSTORE_B64` → Signing keystore
+- `FIREBASE_SERVICE_ACCOUNT_B64` → App Distribution credentials
+- `KEYSTORE_PASSWORD`, `KEY_ALIAS`, `KEY_PASSWORD` → Keystore credentials
+- `FIREBASE_APP_ID` → Per-environment app ID
+
+### Tech Stack
+
+- **GitHub Actions** (Ubuntu runner, JDK 17)
+- **Fastlane** (Ruby) + Firebase App Distribution plugin
+- **Gradle** (Kotlin DSL) + ktlint enforcement
+
+### Impact
+
+- **<3 min** from merge to tester hands
+- **Zero** version conflicts (automated increment + Firebase validation)
+- **100%** traceable releases (PR → release notes → notifications)
+
 ## 📸 Demo
 
 ### Android
