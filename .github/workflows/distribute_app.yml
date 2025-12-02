@@ -19,11 +19,14 @@ on:
 jobs:
   test-and-build:
     if: github.ref_name == 'dev' && github.event_name == 'push'
+    environment: dev
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout repo
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - name: Set Up JDK 17
         uses: actions/setup-java@v4
