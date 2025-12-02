@@ -7,10 +7,45 @@ on:
       - staging
       - main
       - master
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: 'Environment to deploy'
+        required: true
+        type: choice
+        options:
+          - dev
 
 jobs:
+  test-and-build:
+    if: github.ref_name == 'dev' && github.event_name == 'push'
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Set Up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+
+      - name: Create google-services.json
+        run: |
+          echo "${{ secrets.GOOGLE_SERVICES_JSON_B64 }}" | base64 --decode > composeApp/google-services.json
+
+      - name: Run Unit Tests
+        run: |
+          chmod +x ./gradlew
+          ./gradlew testDevDebugUnitTest
+
+      - name: Build Dev APK
+        run: ./gradlew assembleDevDebug
+
   test-build-and-distribute:
-    environment: ${{ (github.ref_name == 'main' || github.ref_name == 'master') && 'prod' || (github.ref_name == 'staging' && 'staging') || 'dev' }}
+    if: (github.ref_name == 'staging' || github.ref_name == 'main' || github.ref_name == 'master') && github.event_name == 'push' || github.event_name == 'workflow_dispatch'
+    environment: ${{ github.event_name == 'workflow_dispatch' && 'dev' || ((github.ref_name == 'main' || github.ref_name == 'master') && 'prod' || 'staging') }}
     runs-on: ubuntu-latest
 
     steps:
@@ -20,6 +55,7 @@ jobs:
           fetch-depth: 0
 
       - name: Get PR Info
+        if: github.event_name == 'push'
         id: pr_info
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -31,6 +67,12 @@ jobs:
           else
             echo "body=" >> $GITHUB_OUTPUT
           fi
+
+      - name: Set Manual Dispatch Description
+        if: github.event_name == 'workflow_dispatch'
+        id: manual_description
+        run: |
+          echo "body=Manual dev distribution triggered by ${{ github.actor }}" >> $GITHUB_OUTPUT
 
       - name: Set Up JDK 17
         uses: actions/setup-java@v4
@@ -74,7 +116,7 @@ jobs:
         env:
           FIREBASE_SERVICE_ACCOUNT_B64: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_B64 }}
           FIREBASE_APP_ID: ${{ secrets.FIREBASE_APP_ID }}
-          PR_DESCRIPTION: ${{ steps.pr_info.outputs.body }}
+          PR_DESCRIPTION: ${{ github.event_name == 'push' && steps.pr_info.outputs.body || steps.manual_description.outputs.body }}
         run: |
           cd ./composeApp
           bundle exec fastlane distribute
