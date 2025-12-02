@@ -151,11 +151,11 @@ end
        )
 
       gradle(
-          task: "assemble#{options[:flavor].capitalize}Release",
+          task: "bundle#{options[:flavor].capitalize}Release",
           project_dir: '../'
       )
 
-      apk_path = "build/outputs/apk/#{options[:flavor]}/release/composeApp-#{options[:flavor]}-release.apk"
+      aab_path = "build/outputs/bundle/#{options[:flavor]}/release/composeApp-#{options[:flavor]}-release.aab"
       release_notes_path = File.expand_path(options[:release_notes_path], __dir__)
 
       firebase_app_distribution(
@@ -163,8 +163,8 @@ end
         service_credentials_file: ENV['FIREBASE_APP_DISTRIBUTION_SERVICE_CREDENTIALS_FILE'],
         groups: options[:tester_groups],
         release_notes_file: release_notes_path,
-        android_artifact_type: "APK",
-        android_artifact_path: apk_path,
+        android_artifact_type: "AAB",
+        android_artifact_path: aab_path,
         debug: true
       )
 
