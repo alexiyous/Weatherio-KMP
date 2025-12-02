@@ -85,61 +85,64 @@ platform :android do
       puts "CREATED release notes and saved to #{options[:output_path]}"
   end
 
-  private_lane :_auto_increment_version do |options|
-      flavor = options[:flavor]
-      firebase_app_id = options[:firebase_app_id]
+private_lane :_auto_increment_version do |options|
+  flavor = options[:flavor]
+  firebase_app_id = options[:firebase_app_id]
+  gradle_file = File.join(__dir__, "../build.gradle.kts")
 
-      latest_release = firebase_app_distribution_get_latest_release(
-        app: firebase_app_id,
-        service_credentials_file: ENV['FIREBASE_APP_DISTRIBUTION_SERVICE_CREDENTIALS_FILE']
-      )
-
-      current_version_name = latest_release[:displayVersion]
-      current_version_code = latest_release[:buildVersion].to_i
-      new_version_code = current_version_code + 1
-
-      # Analyze Git diff to determine version bump strategy
-      diff_stats = sh("git diff --shortstat HEAD~5 HEAD", log: false).strip rescue ""
-
-      insertions = diff_stats.match(/(\d+) insertion/)&.captures&.first.to_i
-      deletions = diff_stats.match(/(\d+) deletion/)&.captures&.first.to_i
-      files_changed = diff_stats.match(/(\d+) file/)&.captures&.first.to_i
-
-      total_changes = insertions + deletions
-
-      version_parts = current_version_name.split(".")
-      major = version_parts[0].to_i
-      minor = version_parts[1].to_i
-      patch = version_parts[2].to_i
-
-      # Bump strategy:
-      # - Major (x): >1000 lines OR >50 files (breaking changes/major refactor)
-      # - Minor (y): >300 lines OR >15 files (new features)
-      # - Patch (z): everything else (bug fixes/small changes)
-      if total_changes > 1000 || files_changed > 50
-        major += 1
-        minor = 0
-        patch = 0
-        puts "MAJOR bump detected: #{total_changes} lines, #{files_changed} files changed"
-      elsif total_changes > 300 || files_changed > 15
-        minor += 1
-        patch = 0
-        puts "MINOR bump detected: #{total_changes} lines, #{files_changed} files changed"
-      else
-        patch += 1
-        puts "PATCH bump detected: #{total_changes} lines, #{files_changed} files changed"
-      end
-
-      new_version_name = "#{major}.#{minor}.#{patch}"
-
-      gradle_file = File.join(__dir__, "../build.gradle.kts")
-      content = File.read(gradle_file)
-      content.gsub!(/versionCode\s*=\s*\d+/, "versionCode = #{new_version_code}")
-      content.gsub!(/versionName\s*=\s*"[^"]+"/, "versionName = \"#{new_version_name}\"")
-      File.write(gradle_file, content)
-
-      puts "Updated version: #{new_version_name} (#{new_version_code})"
+  begin
+    latest_release = firebase_app_distribution_get_latest_release(
+      app: firebase_app_id,
+      service_credentials_file: ENV['FIREBASE_APP_DISTRIBUTION_SERVICE_CREDENTIALS_FILE']
+    )
+    current_version_name = latest_release[:displayVersion]
+    current_version_code = latest_release[:buildVersion].to_i
+    puts "Fetched from Firebase: #{current_version_name} (#{current_version_code})"
+  rescue => e
+    puts "No Firebase release found, reading from Gradle: #{e.message}"
+    content = File.read(gradle_file)
+    current_version_code = content.match(/versionCode\s*=\s*(\d+)/)[1].to_i
+    current_version_name = content.match(/versionName\s*=\s*"([^"]+)"/)[1]
+    puts "Read from Gradle: #{current_version_name} (#{current_version_code})"
   end
+
+  new_version_code = current_version_code + 1
+
+  # Analyze Git diff
+  diff_stats = sh("git diff --shortstat HEAD~5 HEAD", log: false).strip rescue ""
+  insertions = diff_stats.match(/(\d+) insertion/)&.captures&.first.to_i
+  deletions = diff_stats.match(/(\d+) deletion/)&.captures&.first.to_i
+  files_changed = diff_stats.match(/(\d+) file/)&.captures&.first.to_i
+  total_changes = insertions + deletions
+
+  version_parts = current_version_name.split(".")
+  major = version_parts[0].to_i
+  minor = version_parts[1].to_i
+  patch = version_parts[2].to_i
+
+  if total_changes > 1000 || files_changed > 50
+    major += 1
+    minor = 0
+    patch = 0
+    puts "MAJOR bump: #{total_changes} lines, #{files_changed} files"
+  elsif total_changes > 300 || files_changed > 15
+    minor += 1
+    patch = 0
+    puts "MINOR bump: #{total_changes} lines, #{files_changed} files"
+  else
+    patch += 1
+    puts "PATCH bump: #{total_changes} lines, #{files_changed} files"
+  end
+
+  new_version_name = "#{major}.#{minor}.#{patch}"
+
+  content = File.read(gradle_file)
+  content.gsub!(/versionCode\s*=\s*\d+/, "versionCode = #{new_version_code}")
+  content.gsub!(/versionName\s*=\s*"[^"]+"/, "versionName = \"#{new_version_name}\"")
+  File.write(gradle_file, content)
+
+  puts "Updated version: #{new_version_name} (#{new_version_code})"
+end
 
   private_lane :_distribute_to_firebase do |options|
        _auto_increment_version(
