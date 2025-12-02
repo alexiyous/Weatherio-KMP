@@ -71,7 +71,7 @@ jobs:
             echo "body=" >> $GITHUB_OUTPUT
           fi
 
-      - name: Set Manual Dispatch Description
+      - name: Set Manual Dispatch
         if: github.event_name == 'workflow_dispatch'
         id: manual_description
         run: |
