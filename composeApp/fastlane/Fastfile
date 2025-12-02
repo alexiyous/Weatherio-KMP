@@ -39,7 +39,7 @@ platform :android do
                 flavor: 'staging',
                 firebase_app_id: ENV['FIREBASE_APP_ID'],
                 tester_groups: 'qa-testers',
-                release_notes_path: '../release_notes_dev.txt'
+                release_notes_path: '../release_notes_staging.txt'
               }
           when 'master', 'main'
               config = {
