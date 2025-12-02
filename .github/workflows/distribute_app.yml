@@ -47,9 +47,16 @@ jobs:
       - name: Run Unit Tests
         run: |
           chmod +x ./gradlew
-          ./gradlew testDevDebugUnitTest
+          if [[ "${{ github.ref_name }}" == "main" || "${{ github.ref_name }}" == "master" ]]; then
+            ./gradlew testProdDebugUnitTest
+          elif [[ "${{ github.ref_name }}" == "staging" ]]; then
+            ./gradlew testStagingDebugUnitTest
+          else
+            ./gradlew testDevDebugUnitTest
+          fi
 
-     
+      - name: Build Dev APK
+        run: ./gradlew assembleDevDebug
 
   test-build-and-distribute:
     if: (github.ref_name == 'staging' || github.ref_name == 'main' || github.ref_name == 'master') && github.event_name == 'push' || github.event_name == 'workflow_dispatch'
