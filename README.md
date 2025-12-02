@@ -93,6 +93,10 @@ Required GitHub secrets (base64-encoded):
 - **Zero** version conflicts (automated increment + Firebase validation)
 - **100%** traceable releases (PR → release notes → notifications)
 
+### Diagram Flow
+
+<img width="902" height="750" alt="android_cicd" src="https://github.com/user-attachments/assets/0205e192-c447-4a11-bef9-4432e210a534" />
+
 ## 📸 Demo
 
 ### Android
