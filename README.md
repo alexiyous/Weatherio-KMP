@@ -1,4 +1,5 @@
 [![Test, Build, and Distribute](https://github.com/alexiyous/Weatherio-KMP/actions/workflows/distribute_app.yml/badge.svg)](https://github.com/alexiyous/Weatherio-KMP/actions/workflows/distribute_app.yml)
+[![Pull Request Checks](https://github.com/alexiyous/Weatherio-KMP/actions/workflows/pull_request_check.yml/badge.svg)](https://github.com/alexiyous/Weatherio-KMP/actions/workflows/pull_request_check.yml)
 
 
 # Weatherio 🌦️
