@@ -94,8 +94,7 @@ Required GitHub secrets (base64-encoded):
 - **100%** traceable releases (PR → release notes → notifications)
 
 ### Diagram Flow
-
-<img width="902" height="750" alt="android_cicd" src="https://github.com/user-attachments/assets/0205e192-c447-4a11-bef9-4432e210a534" />
+<img width="1385" height="1757" alt="android cicd" src="https://github.com/user-attachments/assets/70c67eb3-1bdc-4358-9b32-cacf118281da" />
 
 ## 📸 Demo
 
